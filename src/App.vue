@@ -2,7 +2,8 @@
   <div id="app">
     <nav>
       <router-link to="/accounts/signup">Signup</router-link> |
-      <router-link to="/accounts/login">Login</router-link>
+      <router-link to="/accounts/login">Login</router-link> |
+      <router-link to="/accounts/logout">Logout</router-link>
     </nav>
     <Slide width="300">
       <router-link to="/">

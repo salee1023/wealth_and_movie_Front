@@ -6,6 +6,7 @@ import Community from '../views/SideNavbar/Community.vue'
 import Analytics from '../views/SideNavbar/Analytics.vue'
 import Signup from '../views/Accounts/Signup.vue'
 import Login from '../views/Accounts/Login.vue'
+import Logout from '../views/Accounts/Logout.vue'
 
 
 Vue.use(VueRouter)
@@ -40,6 +41,11 @@ const routes = [
     path: '/accounts/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/accounts/logout',
+    name: 'Logout',
+    component: Logout
   },
 ]
 
