@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Mypage from '../views/Mypage.vue'
-import Community from '../views/Community.vue'
-import Analytics from '../views/Analytics.vue'
+import Home from '../views/SideNavbar/Home.vue'
+import Mypage from '../views/SideNavbar/Mypage.vue'
+import Community from '../views/SideNavbar/Community.vue'
+import Analytics from '../views/SideNavbar/Analytics.vue'
+import Signup from '../views/Accounts/Signup.vue'
+import Login from '../views/Accounts/Login.vue'
+
 
 Vue.use(VueRouter)
 
@@ -27,6 +30,16 @@ const routes = [
     path: '/analytics',
     name: 'Analytics',
     component: Analytics
+  },
+  {
+    path: '/accounts/signup',
+    name: 'Signup',
+    component: Signup
+  },
+  {
+    path: '/accounts/login',
+    name: 'Login',
+    component: Login
   },
 ]
 
