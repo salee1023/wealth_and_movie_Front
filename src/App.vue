@@ -1,9 +1,13 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/accounts/signup">Signup</router-link> |
-      <router-link to="/accounts/login">Login</router-link> |
-      <router-link to="/accounts/logout">Logout</router-link>
+      <span v-if="isLogin">
+        <router-link to="/accounts/logout">Logout</router-link>
+      </span>
+      <span v-else>
+        <router-link to="/accounts/signup">Signup</router-link> |
+        <router-link to="/accounts/login">Login</router-link> 
+      </span>
     </nav>
     <Slide width="300">
       <router-link to="/">
@@ -31,9 +35,19 @@ import { Slide } from 'vue-burger-menu'
 
 export default {
   name: 'App',
+  data: function () {
+    return {
+    
+    }
+  },
   components: {
       Slide,
   },
+  computed: {
+    isLogin: function () {
+      return this.$store.state.is_login
+    }
+  }
 }
 </script>
 

@@ -9,6 +9,7 @@
         type="text" 
         class="form-control" 
         placeholder="ID를 입력해주세요"
+        v-model="credentials.username"
         >
       </div>
       <div class="form-group">
@@ -18,51 +19,45 @@
         type="password" 
         class="form-control" 
         placeholder="PASSWORD를 입력해주세요"
+        v-model="credentials.password"
         >
       </div>
       <small>
         <a :href="signupUrl">아직 회원이 아니신가요? 회원가입을 해보세요!</a>
       </small>
       <br>
-      <button 
-      type="submit" 
-      class="btn btn-secondary my-3"
-      @click="login"
-      >
-      로그인</button>
+      <button type="submit" class="btn btn-secondary my-3">로그인</button>
     </form>
   </div>
   
 </template>
 
 <script>
-// import axios from 'axios'
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL
+import axios from 'axios'
+const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
-    name: 'Signup',
+    name: 'Login',
     data: function () {
       return {
         credentials: {
-          userId: '',
+          username: '',
           password: '',
         },
-        signupUrl: 'http://localhost:8080/accounts/signup'
+        signupUrl: 'http://localhost:8080/accounts/signup/'
       }
     },
     methods: {
       login: function () {
-        console.log('로그인 잘 되나!!')
-        // axios.post(`${SERVER_URL}/accouts/api-token-auth`, this.credentials)
-        //   .then((res) => {
-        //   // console.log(res)
-        //   localStorage.setItem('jwt', res.data.token)
-        //   this.$emit('login')
-        //   this.$router.push({ name: 'Home' })
-        //   })
-        //   .catch((err) => {
-        //     console.log(err)
-        //   })
+        axios.post(`${SERVER_URL}/accounts/api-token-auth/`, this.credentials)
+          .then((res) => {
+            localStorage.setItem('jwt', res.data.token)
+            this.$store.dispatch('login')
+            this.$router.push({ name: 'Home' })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
     }
 }

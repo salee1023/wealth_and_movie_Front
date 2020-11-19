@@ -35,12 +35,6 @@ export default {
     Comments,
     Recommend,
   },
-  data: function () {
-    return {
-    }
-  },
-  methods: {
-  }
 }
 </script>
 
