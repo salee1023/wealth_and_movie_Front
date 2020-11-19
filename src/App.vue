@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <nav>
+      <router-link to="/accounts/signup">Signup</router-link> |
+      <router-link to="/accounts/login">Login</router-link>
+    </nav>
     <Slide width="300">
       <router-link to="/">
         <span>Home</span>
@@ -15,7 +19,6 @@
       </router-link>
     </Slide>
     
-    <!-- <a :href="admin">Admin</a>  --> 
     <router-view/>
 
   </div>

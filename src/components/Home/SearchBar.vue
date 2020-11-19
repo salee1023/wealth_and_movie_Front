@@ -1,13 +1,14 @@
 <template>
   <div 
   class="search-bar input-group" 
-  :style="{ margin: isClick ? '0' : '30vh 0' }"
+  :style="{ margin: searchInput ? '0' : '30vh 0' }"
   >
     <input 
     type="text" 
     class="form-control" 
     placeholder="영화를 검색해주세요 :)"
     @keypress.enter="onEnter" 
+    @click="onKey"
     >
     <div class="input-group-append">
       <button 
@@ -27,7 +28,6 @@ export default {
     name: 'SearchBar',
     data: function () {
       return {
-        isClick: false,
         searchInput: '',
       }
     },
@@ -40,9 +40,11 @@ export default {
     methods: {
       onEnter: function (event) {
         this.searchInput = event.target.value
-        this.isClick = !this.isClick
         this.$store.dispatch('movieSearch', this.searchInput)
         console.log(this.searchInput)
+      },
+      onKey: function (event) {
+        event.target.value = ''
       }
     },
 }
