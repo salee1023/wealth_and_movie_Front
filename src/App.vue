@@ -1,15 +1,42 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Slide width="300">
+      <router-link to="/">
+        <span>Home</span>
+      </router-link>
+      <router-link to="/mypage">
+        <span>Mypage</span>
+      </router-link>
+      <router-link to="/community">
+        <span>Community</span>
+      </router-link>
+      <router-link to="/analytics">
+        <span>Analytics</span>
+      </router-link>
+    </Slide>
+    
+    <!-- <a :href="admin">Admin</a>  --> 
     <router-view/>
+
   </div>
 </template>
 
+<script>
+import { Slide } from 'vue-burger-menu' 
+// import slide from './views/Menu/slide'
+
+export default {
+  name: 'App',
+  components: {
+      Slide,
+  },
+}
+</script>
+
+
 <style>
 #app {
+  margin-top: 50px;
   font-family: 'Raleway', sans-serif; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
