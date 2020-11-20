@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!--장르 dropdown-->
+    <!-- 장르 dropdown-->
     <label for="genre">장르</label>
     <select v-model="selectedGenre" id="genre">
-        <option>전체</option>
+        <option disabled value="">전체</option>
         <option>액션</option>
         <option>모험</option>
         <option>애니메이션</option>
@@ -25,8 +25,10 @@
         <option>서부</option>
     </select>
 
+    
+
     <!--영화목록-->
-    <div class="row row-cols-1 row-cols-md-3">
+    <div class="row row-cols-3 row-cols-md-5">
       <MovieCard 
       v-for="(movie, idx) in movies"
       :key="idx"
@@ -53,9 +55,10 @@ export default {
  computed: {
     movies: function () {
       return this.$store.state.movies
-    }
+    },
  },
  methods: {
+   // 로그인 확인용 token 발급
    setToken: function () {
       const token = localStorage.getItem('jwt')
 

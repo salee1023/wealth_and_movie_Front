@@ -15,7 +15,7 @@ export default new Vuex.Store({
     GET_MOVIES: function (state, config) {
       axios.get(`${SERVER_URL}/movies/`, config)
        .then(res => {
-         this.movies = res.data
+         state.movies = res.data
        })
        .catch(err => {
          console.log(err)
