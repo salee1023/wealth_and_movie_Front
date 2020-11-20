@@ -26,14 +26,13 @@ export default {
       BestReviewer,
     },
     created: function () {
+    // Login이 안되어있으면 Login으로 이동
+    const isLogin = this.$store.state.is_login
 
-      // Login이 안되어있으면 Login으로 이동
-      const isLogin = this.$store.state.is_login
-
-      if (isLogin === false) {
-        this.$router.push({ name: 'Login' })
-      }
+    if (isLogin === false) {
+      this.$router.push({ name: 'Login' })
     }
+  } 
 }
 </script>
 

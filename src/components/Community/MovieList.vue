@@ -25,8 +25,6 @@
         <option>서부</option>
     </select>
 
-    
-
     <!--영화목록-->
     <div class="row row-cols-3 row-cols-md-5">
       <MovieCard 
@@ -57,23 +55,6 @@ export default {
       return this.$store.state.movies
     },
  },
- methods: {
-   // 로그인 확인용 token 발급
-   setToken: function () {
-      const token = localStorage.getItem('jwt')
-
-      const config = {
-        headers: {
-          Authorization: `JWT ${token}`
-        }
-      }
-      return config
-    },
- },
- created: function () {
-   const config = this.setToken()
-   this.$store.dispatch('getMovies', config)
- }
 }
 </script>
 

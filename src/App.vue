@@ -43,11 +43,29 @@ export default {
   components: {
       Slide,
   },
+  methods: {
+   // 로그인 확인용 token 발급
+   setToken: function () {
+      const token = localStorage.getItem('jwt')
+
+      const config = {
+        headers: {
+          Authorization: `JWT ${token}`
+        }
+      }
+      return config
+    },
+  },
   computed: {
     isLogin: function () {
       return this.$store.state.is_login
-    }
+      }
+  },
+  created: function () {
+   const config = this.setToken()
+   this.$store.dispatch('getMovies', config)
   }
+  
 }
 </script>
 
