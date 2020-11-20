@@ -52,7 +52,7 @@ export default {
         axios.post(`${SERVER_URL}/accounts/api-token-auth/`, this.credentials)
           .then((res) => {
             localStorage.setItem('jwt', res.data.token)
-            this.$store.dispatch('login')
+            this.$store.dispatch('login', this.credentials.username)
             this.$router.push({ name: 'Home' })
           })
           .catch((err) => {

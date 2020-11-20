@@ -47,7 +47,7 @@ import axios from 'axios'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
-  name: 'Singup',
+  name: 'Signup',
   data: function () {
     return {
       credentials:{
@@ -61,8 +61,7 @@ export default {
     signup: function () {
       console.log('회원가입 잘 됐나!!!')
       axios.post(`${SERVER_URL}/accounts/signup/`, this.credentials)
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           this.$router.push({ name: 'Login' })
         })
         .catch((err) => {

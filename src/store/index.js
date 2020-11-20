@@ -10,22 +10,26 @@ export default new Vuex.Store({
   state: {
     movies: [],
     is_login: false,
+    username: '',
   },
   mutations: {
     GET_MOVIES: function (state, config) {
       axios.get(`${SERVER_URL}/movies/`, config)
        .then(res => {
+         console.log(res)
          state.movies = res.data
        })
        .catch(err => {
          console.log(err)
        })
     },
-    LOGIN: function (state) {
+    LOGIN: function (state, username) {
       state.is_login = true
+      state.username = username
     },
     LOGOUT: function (state) {
       state.is_login = false
+      state.username = ''
     }
   },
   actions: {
@@ -33,8 +37,8 @@ export default new Vuex.Store({
     getMovies({ commit }, config) {
       commit('GET_MOVIES', config)
     },
-    login({ commit }){
-      commit('LOGIN')
+    login({ commit }, username){
+      commit('LOGIN', username)
     },
     logout({ commit }){
       commit('LOGOUT')
