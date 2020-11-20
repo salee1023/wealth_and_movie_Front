@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Comment</h1>
+      <h1>Comments</h1>
   </div>
 </template>
 

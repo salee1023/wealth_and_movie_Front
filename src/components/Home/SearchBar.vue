@@ -6,7 +6,7 @@
     <input 
     type="text" 
     class="form-control" 
-    placeholder="영화를 검색해주세요 :)"
+    placeholder="영화를 검색해주세요"
     @keypress.enter="onEnter" 
     @click="onKey"
     >
@@ -19,7 +19,6 @@
       🔍
       </button>
     </div>
-
   </div>
 </template>
 
@@ -31,12 +30,6 @@ export default {
         searchInput: '',
       }
     },
-    // movie가 검색되면 들어올 데이터
-    // props: {
-    //   movieInfo: {
-    //     type: Object,
-    //   }
-    // },
     methods: {
       onEnter: function (event) {
         this.searchInput = event.target.value

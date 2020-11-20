@@ -22,9 +22,6 @@
         v-model="credentials.password"
         >
       </div>
-      <small class="form-text text-muted">
-        비밀번호 유의사항 넣기
-      </small>
       <div class="form-group">
         <label for="passwordConfirm">Password 확인</label>
         <input 
@@ -59,7 +56,6 @@ export default {
   },
   methods: {
     signup: function () {
-      console.log('회원가입 잘 됐나!!!')
       axios.post(`${SERVER_URL}/accounts/signup/`, this.credentials)
         .then(() => {
           this.$router.push({ name: 'Login' })
@@ -73,11 +69,5 @@ export default {
 </script>
 
 <style>
-form {
-  width: 30%;
-  margin: 30px auto;
-}
-.form-group {
-  margin-top: 30px;
-}
+
 </style>

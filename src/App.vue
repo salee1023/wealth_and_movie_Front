@@ -1,15 +1,28 @@
 <template>
   <div id="app">
-    <nav>
-      <span v-if="isLogin">
-        <router-link to="/accounts/logout">Logout</router-link>
-      </span>
-      <span v-else>
-        <router-link to="/accounts/signup">Signup</router-link> |
-        <router-link to="/accounts/login">Login</router-link> 
-      </span>
+    <!--우측 상단 Navbar-->
+    <nav class="mx-3">
+      <ul class="nav justify-content-end" v-if="isLogin">
+        <li class="nav-item">
+          <router-link to="/accounts/logout" class="nav-link">Logout</router-link>
+        </li>
+      </ul>
+      <ul class="nav justify-content-end" v-else>
+        <li class="nav-item">
+          <router-link to="/accounts/signup" class="nav-link">Signup</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/accounts/login" class="nav-link">Login</router-link>
+        </li>
+      </ul>
     </nav>
-    <Slide width="300">
+
+    <!--우측 버거메뉴-->
+    <Slide
+      :closeOnNavigation="true"
+      noOverlay
+      width="300"
+    >
       <router-link to="/">
         <span>Home</span>
       </router-link>
@@ -37,7 +50,7 @@ export default {
   name: 'App',
   data: function () {
     return {
-    
+      is_open: false,
     }
   },
   components: {
@@ -45,7 +58,7 @@ export default {
   },
   methods: {
    // 로그인 확인용 token 발급
-   setToken: function () {
+    setToken: function () {
       const token = localStorage.getItem('jwt')
 
       const config = {
@@ -55,6 +68,10 @@ export default {
       }
       return config
     },
+    isopen: function () {
+      this.is_open = !this.is_open
+    }
+
   },
   computed: {
     isLogin: function () {
@@ -72,7 +89,7 @@ export default {
 
 <style>
 #app {
-  margin-top: 50px;
+  margin-top: 40px;
   font-family: 'Raleway', sans-serif; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -86,12 +103,22 @@ export default {
   padding: 30px;
 }
 
-#nav a {
+#nav ul.li.router-link {
   font-weight: bold;
   color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #5b27ab;
+}
+
+li > a {
+  font-weight: bold;
+  color: black;
+}
+
+nav> a:hover {
+  text-decoration: none;
+  font-size: 115%;
 }
 </style>

@@ -11,12 +11,12 @@ export default new Vuex.Store({
     movies: [],
     is_login: false,
     username: '',
+    searchedMovie: null,
   },
   mutations: {
     GET_MOVIES: function (state, config) {
       axios.get(`${SERVER_URL}/movies/`, config)
        .then(res => {
-         console.log(res)
          state.movies = res.data
        })
        .catch(err => {
@@ -30,10 +30,12 @@ export default new Vuex.Store({
     LOGOUT: function (state) {
       state.is_login = false
       state.username = ''
+    },
+    MOVIE_SEARCH: function (state, searchInput) {
+      state.searchedMovie = state.movies.filter(movie => movie.title === searchInput )
     }
   },
   actions: {
-    // searchBar 동작
     getMovies({ commit }, config) {
       commit('GET_MOVIES', config)
     },
@@ -42,7 +44,10 @@ export default new Vuex.Store({
     },
     logout({ commit }){
       commit('LOGOUT')
-    }
+    },
+    movieSearch({ commit }, searchInput) {
+      commit('MOVIE_SEARCH', searchInput)
+    },
   },
   modules: {
   }

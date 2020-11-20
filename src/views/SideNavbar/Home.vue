@@ -5,11 +5,15 @@
       <Search-bar/>
     </header>
     <!--movie정보가 있을 때 show-->
-    <section>
+    <section id="movie" v-if="searchData">
       <Movie/>
-      <MovieDetail/>
-      <MovieVideo/>
+      <section id="detail">
+        <article><MovieDetail/></article>
+        <aside><MovieVideo/></aside>
+      </section>
+      <hr>
       <Comments/>
+      <hr>
       <Recommend/>
     </section>
 
@@ -35,13 +39,35 @@ export default {
     Comments,
     Recommend,
   },
+  computed: {
+    searchData: function () {
+      return this.$store.state.searchedMovie
+    } 
+  }
 }
 </script>
 
 <style>
-header {
-  width: 70%; /* 너비 80% 만큼 차지 */
+header,
+#movie {
+  width: 60%; /* 너비 80% 만큼 차지 */
   margin: 0 auto; /* 양 옆 마진 똑같이 */
   padding: 1rem 0;
+}
+#detail {
+  display: flex;
+}
+article {
+  width: 100%;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  border-right: 3pt groove lightgrey;
+}
+aside {
+  margin-top: 1rem;
+}
+h1 {
+  text-align: left;
+  font: bold;
 }
 </style>
