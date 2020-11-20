@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <header>
-        <h5>우리 프로젝트 이름 정해줘...안그럼 JSSA로 해버릴거임</h5>  
+        <h5>우리 프로젝트 이름 부귀영화어때??? 보면 매터모스트 ㄱㄱ</h5>  
       <Search-bar/>
     </header>
     <!--movie정보가 있을 때 show-->

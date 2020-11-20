@@ -3,20 +3,26 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import axios from 'axios'
+const SERVER_URL = process.env.VUE_APP_SERVER_URL
+
 export default new Vuex.Store({
   state: {
-    is_movie: '',
+    movies: [],
     is_login: false,
-
   },
   mutations: {
-    MOVIE_SEARCH: function (state, searchInput) {
-      state.is_movie = 'a'
-      console.log(searchInput)
+    GET_MOVIES: function (state, config) {
+      axios.get(`${SERVER_URL}/movies/`, config)
+       .then(res => {
+         this.movies = res.data
+       })
+       .catch(err => {
+         console.log(err)
+       })
     },
     LOGIN: function (state) {
       state.is_login = true
-      console.log(state.is_login)
     },
     LOGOUT: function (state) {
       state.is_login = false
@@ -24,8 +30,8 @@ export default new Vuex.Store({
   },
   actions: {
     // searchBar 동작
-    movieSearch({ commit }, searchInput) {
-      commit('MOVIE_SEARCH', searchInput)
+    getMovies({ commit }, config) {
+      commit('GET_MOVIES', config)
     },
     login({ commit }){
       commit('LOGIN')
