@@ -31,7 +31,6 @@
       v-for="(movie, idx) in movies"
       :key="idx"
       :movie="movie"
-      @clicked-movie="clickedMovie"
       />
     </div>
 
@@ -49,11 +48,6 @@ export default {
  data: function () {
     return {
         selectedGenre: '',
-    }
- },
- methods: {
-    clickedMovie: function (movie) {
-      this.$emit('clicked-movie', movie)
     }
  },
  computed: {

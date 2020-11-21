@@ -23,11 +23,6 @@ export default {
 </script>
 
 <style>
-/* .movie-detail {
-  width: 55%;
-  margin-right: 1rem;
-  border-right: 3pt groove lightgrey;
-} */
 p {
   text-align: left;
 }
