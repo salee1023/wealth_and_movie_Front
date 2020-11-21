@@ -2,8 +2,9 @@
   <div id="reviewForm">
       <h1>ReviewForm</h1>
       <form @submit.prevent="createReview">
-        <h1><strong>{{ this.clickedMovieData.title }}</strong></h1>
-        
+        <span v-if="clickedMovie">
+            <h1><strong>{{ clickedMovie.title }}</strong></h1>    
+        </span>
         <div class="form-group">
             <label for="content">review</label>
             <textarea 
@@ -28,7 +29,7 @@ export default {
     data: function () {
         return {
             article: {
-                movie_pk: '',
+                movie_pk: 0,
                 content: '',
             },
         }
@@ -45,8 +46,9 @@ export default {
             return config
         },
         createReview: function () {
-            console.log(this.article)
             const config = this.setToken()
+            this.article.movie_pk = this.clickedMovie.id
+            console.log(this.article)
             axios.post(`${SERVER_URL}/articles/`,  this.article, config)
                 .then((res) => {
                     console.log(res)
@@ -60,9 +62,9 @@ export default {
             this.article.movie_pk = this.clickedMovieData.id
         },
     },
-    props: {
-        clickedMovieData: {
-            type: Object,
+    computed: {
+        clickedMovie: function () {
+            return this.$store.state.clickedMovie
         }
     },
 }

@@ -30,7 +30,7 @@ export default {
     },
     methods: {
       clickMovie: function () {
-        this.$emit('clicked-movie', this.movie)        
+        this.$store.dispatch('clickedMovie', this.movie)        
       }
     }
 }

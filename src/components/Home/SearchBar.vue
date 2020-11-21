@@ -30,11 +30,17 @@ export default {
         searchInput: '',
       }
     },
+    computed: {
+      searchData: function () {
+        return this.$store.state.searchedMovie
+      },
+    },
     methods: {
       onEnter: function (event) {
         this.searchInput = event.target.value
         this.$store.dispatch('movieSearch', this.searchInput)
-        console.log(this.searchInput)
+        this.$store.dispatch('movieVideoSearch', this.searchInput)
+        this.$store.dispatch('getMovieReviews', this.searchData[0].id)
       },
       onKey: function (event) {
         event.target.value = ''
