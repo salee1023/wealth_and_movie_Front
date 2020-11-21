@@ -39,7 +39,6 @@ export default new Vuex.Store({
 
       axios.get(`${SERVER_URL}/accounts/${username}/`, config)
         .then(res => {
-          console.log(res)
           state.profile = res.data
         })
         .catch(err => {

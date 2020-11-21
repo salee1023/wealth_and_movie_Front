@@ -14,7 +14,7 @@
             ></textarea>
         </div>
         <br>
-      <button type="submit" class="btn btn-secondary my-3">리뷰작성</button>
+      <button @click="clickedMovie" type="submit" class="btn btn-secondary my-3">리뷰작성</button>
     </form>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
     data: function () {
         return {
             article: {
-                movie_pk: this.clickedMovieData.id,
+                movie_pk: '',
                 content: '',
             },
         }
@@ -55,12 +55,16 @@ export default {
                     console.log(err)
                 })
         },
+        clickedMovie :function () {
+            console.log(this.clickedMovieData)
+            this.article.movie_pk = this.clickedMovieData.id
+        },
     },
     props: {
         clickedMovieData: {
-            tpye: Object,
+            type: Object,
         }
-    }
+    },
 }
 </script>
 

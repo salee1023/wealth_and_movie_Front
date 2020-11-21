@@ -1,19 +1,16 @@
 <template>
   <div>
-    <h1>Mypage</h1>
-    <input v-model="username" type="text">
-    <button @click="getProfile">get</button>
     <Profile/>
   </div>
 </template>
 
 <script>
-import Profile from '@/components/Mypage/profile'
+import Profile from '@/components/Mypage/Profile.vue'
 
 export default {
   name: 'Mypage',
   components: {
-    Profile
+    Profile,
   },
   data: function () {
     return {
@@ -26,14 +23,9 @@ export default {
     if (isLogin === false) {
       this.$router.push({ name: 'Login' })
     } else {
-      this.$store.dispatch('getProfile', this.username)
+      this.$store.dispatch('getProfile', this.$store.state.username)
     }
   },
-  methods: {
-    getProfile () {
-      this.$store.dispatch('getProfile', this.username)
-    }
-  }
 }
 </script>
 
