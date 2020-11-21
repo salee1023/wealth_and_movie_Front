@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="signup">
+    <form @submit.prevent="signup" id="signup">
       <h1><strong>회원가입</strong></h1>
       <div class="form-group">
         <label for="userId">ID</label>
@@ -69,5 +69,10 @@ export default {
 </script>
 
 <style>
-
+#signup {
+  border: 3pt groove lightgrey;
+  width: 40%;
+  padding: 10px 10px 10px 10px;
+  margin: 30px auto;
+}
 </style>

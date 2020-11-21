@@ -2,21 +2,20 @@
   <div>
       <h1>Community</h1>
       <section id="community">
-        <ReviewForm/>
         <MovieList/>
-        <article>
-          <RecentReview/>
-        </article>
-        <aside>
-          <BestReviewer/>
-        </aside>
+      <article>
+        <RecentReview/>
+      </article>
+      <aside>
+        <BestReviewer/>
+      </aside>
       </section>
   </div>
 </template>
 
 <script>
 import MovieList from '@/components/Community/MovieList'
-import ReviewForm from '@/components/Community/ReviewForm'
+// import ReviewForm from '@/components/Community/ReviewForm'
 import RecentReview from '@/components/Community/RecentReview'
 import BestReviewer from '@/components/Community/BestReviewer'
 
@@ -26,15 +25,15 @@ export default {
       MovieList,
       RecentReview,
       BestReviewer,
-      ReviewForm,
+      // ReviewForm,
     },
     created: function () {
     const isLogin = this.$store.state.is_login
 
     if (isLogin === false) {
       this.$router.push({ name: 'Login' })
-    }
-  } 
+      }
+    },
 }
 </script>
 

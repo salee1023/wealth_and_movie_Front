@@ -2,7 +2,13 @@
   <div class="movie-detail">
     <p>줄거리</p>
     <p id="overview">{{ movie[0].overview }}</p>
-    <p>{{ movie[0].genres }} / {{ movie[0].release_date }} </p>
+    <p>
+      <span 
+      v-for="(genre, idx) in genres"
+      :key="idx">
+      {{ genre.name }} </span>
+      <span> / {{ movie[0].release_date }} </span>
+    </p>
   </div>
 </template>
 
@@ -18,6 +24,9 @@ export default {
       movie: function () {
         return this.$store.state.searchedMovie
       },
+      genres: function () {
+        return this.movie[0].genres
+      }
     }
 }
 </script>

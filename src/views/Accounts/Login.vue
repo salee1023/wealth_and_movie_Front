@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login" id="login">
       <h1><strong>로그인</strong></h1>
       <div class="form-group">
         <label for="userId">ID</label>
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style>
-form {
+#login {
   border: 3pt groove lightgrey;
   width: 40%;
   padding: 10px 10px 10px 10px;
