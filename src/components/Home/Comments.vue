@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Comments</h1>
+      <strong><h1 class="text-left">Comments</h1></strong>
   </div>
 </template>
 

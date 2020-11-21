@@ -66,8 +66,4 @@ article {
 aside {
   margin-top: 1rem;
 }
-h1 {
-  text-align: left;
-  font: bold;
-}
 </style>

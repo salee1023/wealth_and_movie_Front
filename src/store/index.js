@@ -53,6 +53,7 @@ export default new Vuex.Store({
     LOGOUT: function (state) {
       state.is_login = false
       state.username = ''
+      state.searchedMovie = null
     },
     FOLLOW: function (state, username) {
       const config = {
@@ -70,6 +71,9 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    MOVIE_SEARCH: function (state, searchInput) {
+      state.searchedMovie = state.movies.filter(movie => movie.title === searchInput )
+    },
   },
   actions: {
     // searchBar 동작
@@ -78,9 +82,6 @@ export default new Vuex.Store({
     },
     getProfile({ commit }, username) {
       commit('GET_PROFILE', username)
-    },
-    MOVIE_SEARCH: function (state, searchInput) {
-      state.searchedMovie = state.movies.filter(movie => movie.title === searchInput )
     },
     login({ commit }, username) {
       commit('LOGIN', username)
