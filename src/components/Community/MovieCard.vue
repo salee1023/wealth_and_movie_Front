@@ -9,7 +9,6 @@
       style="cursor: pointer">
       <div class="card-body">
         <h5 class="card-title">{{ this.movie.title }}</h5>
-        <h5 class="card-title">{{ this.movie.genres }}</h5>
       </div>
     </div>
   </div>
@@ -30,7 +29,8 @@ export default {
     },
     methods: {
       clickMovie: function () {
-        this.$store.dispatch('clickedMovie', this.movie)        
+        this.$store.dispatch('clickedMovie', this.movie)      
+        this.$emit('review-form') 
       }
     }
 }
