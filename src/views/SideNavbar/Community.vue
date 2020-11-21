@@ -2,7 +2,8 @@
   <div>
       <h1>Community</h1>
       <section>
-        <MovieList/>
+        <ReviewForm :clickedMovieData="clickedMovieData"/>
+        <MovieList @clicked-movie="clickedMovie"/>
       </section>
       <article>
         <RecentReview/>
@@ -15,6 +16,7 @@
 
 <script>
 import MovieList from '@/components/Community/MovieList'
+import ReviewForm from '@/components/Community/ReviewForm'
 import RecentReview from '@/components/Community/RecentReview'
 import BestReviewer from '@/components/Community/BestReviewer'
 
@@ -24,6 +26,17 @@ export default {
       MovieList,
       RecentReview,
       BestReviewer,
+      ReviewForm,
+    },
+    data: function () {
+      return {
+        clickedMovieData: {},
+      }
+    },
+    methods: {
+      clickedMovie: function (res) {
+        this.clickedMovieData = res
+      }
     },
     created: function () {
     // Login이 안되어있으면 Login으로 이동
@@ -37,5 +50,12 @@ export default {
 </script>
 
 <style>
-
+ReviewForm {
+  position: relative;
+  z-index: 2;
+}
+MovieList {
+  position: relative;
+  z-index: 1;
+}
 </style>

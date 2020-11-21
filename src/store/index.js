@@ -12,6 +12,7 @@ export default new Vuex.Store({
     profile: {},
     is_login: false,
     username: '',
+    searchedMovie: null,
   },
   mutations: {
     GET_MOVIES: function (state) {
@@ -78,6 +79,9 @@ export default new Vuex.Store({
     getProfile({ commit }, username) {
       commit('GET_PROFILE', username)
     },
+    MOVIE_SEARCH: function (state, searchInput) {
+      state.searchedMovie = state.movies.filter(movie => movie.title === searchInput )
+    },
     login({ commit }, username) {
       commit('LOGIN', username)
     },
@@ -86,6 +90,9 @@ export default new Vuex.Store({
     },
     follow({ commit }, username) {
       commit('FOLLOW', username)
+    },
+    movieSearch({ commit }, searchInput) {
+      commit('MOVIE_SEARCH', searchInput)
     },
   },
   modules: {

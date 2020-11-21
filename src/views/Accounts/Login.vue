@@ -65,7 +65,9 @@ export default {
 
 <style>
 form {
-  width: 30%;
+  border: 3pt groove lightgrey;
+  width: 40%;
+  padding: 10px 10px 10px 10px;
   margin: 30px auto;
 }
 .form-group {
