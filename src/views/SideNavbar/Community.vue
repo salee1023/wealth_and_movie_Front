@@ -1,16 +1,16 @@
 <template>
   <div>
       <h1>Community</h1>
-      <section>
-        <ReviewForm :clickedMovieData="clickedMovieData"/>
-        <MovieList @clicked-movie="clickedMovie"/>
+      <section id="community">
+        <ReviewForm/>
+        <MovieList/>
+        <article>
+          <RecentReview/>
+        </article>
+        <aside>
+          <BestReviewer/>
+        </aside>
       </section>
-      <article>
-        <RecentReview/>
-      </article>
-      <aside>
-        <BestReviewer/>
-      </aside>
   </div>
 </template>
 
@@ -28,18 +28,7 @@ export default {
       BestReviewer,
       ReviewForm,
     },
-    data: function () {
-      return {
-        clickedMovieData: {},
-      }
-    },
-    methods: {
-      clickedMovie: function (res) {
-        this.clickedMovieData = res
-      }
-    },
     created: function () {
-    // Login이 안되어있으면 Login으로 이동
     const isLogin = this.$store.state.is_login
 
     if (isLogin === false) {
@@ -50,12 +39,9 @@ export default {
 </script>
 
 <style>
-ReviewForm {
-  position: relative;
-  z-index: 2;
-}
-MovieList {
-  position: relative;
-  z-index: 1;
+#community {
+  width: 80%; /* 너비 80% 만큼 차지 */
+  margin: 0 auto; /* 양 옆 마진 똑같이 */
+  padding: 1rem 0;
 }
 </style>

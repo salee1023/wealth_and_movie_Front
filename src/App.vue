@@ -80,8 +80,8 @@ export default {
   },
   created: function () {
     this.$store.dispatch('getMovies')
+    this.$store.dispatch('getReviews')
   }
-  
 }
 </script>
 

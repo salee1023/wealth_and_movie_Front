@@ -23,10 +23,10 @@
         >
       </div>
       <small>
-        <a :href="signupUrl">아직 회원이 아니신가요? 회원가입을 해보세요!</a>
+        <p id="go-signup" @click="goSignup">아직 회원이 아니신가요? 회원가입을 해보세요!</p>
       </small>
       <br>
-      <button type="submit" class="btn btn-secondary my-3">로그인</button>
+      <button type="submit" class="btn btn-secondary mb-3">로그인</button>
     </form>
   </div>
   
@@ -44,7 +44,6 @@ export default {
           username: '',
           password: '',
         },
-        signupUrl: 'http://localhost:8080/accounts/signup/'
       }
     },
     methods: {
@@ -58,6 +57,9 @@ export default {
           .catch((err) => {
             console.log(err)
           })
+      },
+      goSignup: function () {
+        this.$router.push({ name:'Signup' })
       }
     }
 }
@@ -72,5 +74,13 @@ form {
 }
 .form-group {
   margin-top: 30px;
+}
+#go-signup {
+  margin-top: 1rem;
+  text-align: center;
+}
+#go-signup:hover {
+  color: blue;
+  cursor: pointer;
 }
 </style>
