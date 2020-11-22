@@ -1,43 +1,57 @@
 <template>
-  <div class="col mb-4">
-    <div class="card">
-      <img 
-      :src="movieImageSrc" 
-      class="card-img-top" 
-      alt="이미지가 안나옴" 
-      @click="clickMovie"
-      style="cursor: pointer">
-      <div class="card-body">
-        <h5 class="card-title">{{ this.movie.title }}</h5>
-      </div>
-    </div>
+  <div>
+    <v-hover>
+        <template v-slot:default="{ hover }">
+          <v-card class="mb-4 mx-2">
+          <v-img :src="movieImageSrc"></v-img>
+
+          <v-fade-transition>
+            <v-overlay
+              v-if="hover"
+              absolute
+              color="#000000"
+            >
+              <button class="btn btn-danger mb-3" @click="clickMovie">리뷰쓰기</button><br>
+              <button class="btn btn-danger mb-3" @click="movieReviews">리뷰보기</button>
+            </v-overlay>
+          </v-fade-transition>
+
+          </v-card>
+        </template>
+      </v-hover>
   </div>
 </template>
 
 <script>
 export default {
     name: 'MovieCard',
+    data: function () {
+      return {
+        overlay: false,
+      }
+    },
     props: {
         movie: {
             type: Object,
-        }
+        },
     },
     computed: {
-        movieImageSrc: function () {
-            return this.movie.poster_path
-        }
+      movieImageSrc: function () {
+          return this.movie.poster_path
+      }
     },
     methods: {
       clickMovie: function () {
         this.$store.dispatch('clickedMovie', this.movie)      
-        this.$emit('review-form') 
+        // this.$emit('review-form') 
+      },
+      movieReviews: function () {
+        this.$store.dispatch('movieReviews', this.movie)
       }
     }
 }
 </script>
 
 <style>
-img {
-height: 80%
-}
+
 </style>

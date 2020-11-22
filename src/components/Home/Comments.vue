@@ -15,7 +15,7 @@
       </div>
       <div v-else class="mt-3">
         <strong><p class="text-center">다른 사람의 리뷰를 보고 싶다면 로그인 하세요!</p></strong>
-        <button class="btn btn-secondary my-1" @click="goLogin">로그인</button>
+        <b-button @click="goLogin" variant="secondary">로그인</b-button>
       </div>
   </div>
 </template>

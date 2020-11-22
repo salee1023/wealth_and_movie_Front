@@ -67,9 +67,6 @@ header,
   margin-right: 1rem;
   border-right: 3pt groove lightgrey;
 }
-#detail-movie {
-  width: 30%;
-}
 aside {
   margin-top: 1rem;
 }

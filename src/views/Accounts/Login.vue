@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="login" id="login">
-      <h1><strong>로그인</strong></h1>
+      <h1><strong>LOGIN</strong></h1>
       <div class="form-group">
         <label for="userId">ID</label>
         <input 
@@ -29,7 +29,7 @@
       <button type="submit" class="btn btn-secondary mb-3">로그인</button>
     </form>
   </div>
-  
+
 </template>
 
 <script>

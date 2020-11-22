@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate"
 
 Vue.use(Vuex)
 
@@ -113,7 +114,7 @@ export default new Vuex.Store({
       })
       .then(res => {
         const r_videos = res.data.items
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 2; i++) {
           state.videos.push(r_videos[i])
         }
       })
@@ -157,6 +158,5 @@ export default new Vuex.Store({
       commit('CLICKED_MOVIE', movie)
     },
   },
-  modules: {
-  }
+  plugins: [createPersistedState()],
 })
