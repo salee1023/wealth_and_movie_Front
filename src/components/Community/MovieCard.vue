@@ -11,15 +11,31 @@
               absolute
               color="#000000"
             >
-              <button class="btn btn-danger mb-3" @click="clickMovie">리뷰쓰기</button><br>
-              <button class="btn btn-danger mb-3" @click="movieReviews">리뷰보기</button>
+              <button 
+              class="btn btn-danger mb-3" 
+              @click="clickMovie" 
+              data-toggle="modal" 
+              data-target="#reviewFormModal"
+              >
+              리뷰쓰기
+              </button><br>
+              <button 
+              class="btn btn-danger mb-3" 
+              @click="getMovieReviews"
+              data-toggle="modal" 
+              data-target="#reviewsModal"
+              >
+              리뷰보기
+              </button>
             </v-overlay>
           </v-fade-transition>
 
           </v-card>
         </template>
       </v-hover>
+
   </div>
+
 </template>
 
 <script>
@@ -37,16 +53,16 @@ export default {
     },
     computed: {
       movieImageSrc: function () {
-          return this.movie.poster_path
-      }
+        return this.movie.poster_path
+      },
     },
     methods: {
       clickMovie: function () {
-        this.$store.dispatch('clickedMovie', this.movie)      
-        // this.$emit('review-form') 
+        this.$store.dispatch('clickedMovie', this.movie)       
       },
-      movieReviews: function () {
-        this.$store.dispatch('movieReviews', this.movie)
+      getMovieReviews: function () {
+        this.$store.dispatch('clickedMovie', this.movie) 
+        this.$store.dispatch('getMovieReviews', this.movie.id)
       }
     }
 }

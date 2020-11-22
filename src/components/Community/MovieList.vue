@@ -34,13 +34,11 @@
       v-for="(movie, idx) in selectedMovies"
       :key="idx"
       :movie="movie"
-      data-toggle="modal" 
-      data-target="#reviewFormModal"
       />
     </div>
 
     <!--ReviewFormModal-->
-    <div class="modal fade" id="reviewFormModal" tabindex="-1" v-if="clickedMovie">
+    <div class="modal fade" id="reviewFormModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-center">
@@ -66,30 +64,38 @@
 
 
     <!--ReviewsModal-->
-    <div class="modal fade" id="reviewFormModal" tabindex="-1" v-if="clickedMovie">
-      <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="reviewsModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-center">
-            <h1 class="mb-0"><stong>{{ clickedMovie.title }}</stong></h1>   
+            <h1 class="mb-0"><stong>'{{ clickedMovie.title }}' REVIEW</stong></h1>   
           </div>
-          <div class="modal-body">
-            <!--ReviewForm-->
-            <form @submit.prevent="createReview"> 
-              <div class="form-group my-0">
-                <label for="review">{{ username }}님의 후기를 들려주세요😊</label>
-                <textarea class="form-control" id="review" rows="5" v-model="article.content"></textarea>             
-                <div class="d-flex justify-content-center my-2">
-                <star-rating v-model="article.rating" active-color="purple"></star-rating>
-                </div>
-                <button type="submit" class="btn btn-secondary my-3 text-white">리뷰작성</button>    
-                <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button>    
-              </div>
-            </form>
+          <div class="modal-body" v-if="movieReviews.length">  
+            <li 
+            v-for="(review, idx) in movieReviews"
+            :key="idx"
+            id="review"
+            >
+            <h5>{{ review.user }}</h5>
+            <p>{{ review.content }}</p>
+            <p>{{ review.created_at }} | {{ review.updated_at}}</p>
+
+            <div v-if="username === review.user">
+              <button type="button" class="btn btn-outline-primary"> 수정 </button>
+              <button type="button" class="btn btn-outline-danger"> 삭제 </button>        
+            </div>
+            <hr>
+            </li>                                     
+            <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button>    
+                         
+          </div>
+          <div v-else>
+            <h4 class="text-center mt-4">아직 리뷰가 없군요😂</h4>
+            <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button> 
           </div>
         </div>
       </div>
     </div>
-
 
   </div>
 </template>
@@ -135,7 +141,7 @@ export default {
       axios.post(`${SERVER_URL}/articles/`,  this.article, config)
         .then(() => {
           this.article.content = ''
-
+          this.$store.dispatch('getReviews')
         })
         .catch((err) => {
             console.log(err)
@@ -149,9 +155,12 @@ export default {
     clickedMovie: function () {
       return this.$store.state.clickedMovie
     },
+    movieReviews: function () {
+      return this.$store.state.movieReviews
+    },
     username: function () {
       return this.$store.state.username
-    }
+    },
  },
  watch: {
     selectedGenre: function () {
@@ -163,6 +172,7 @@ export default {
       }
     }
  },
+ 
  created: function () {
    this.selectedMovies = this.movies
  }
@@ -170,5 +180,11 @@ export default {
 </script>
 
 <style>
-
+#review {
+  list-style: none;
+  text-align: left;
+}
+p {
+  margin: 0;
+}
 </style>
