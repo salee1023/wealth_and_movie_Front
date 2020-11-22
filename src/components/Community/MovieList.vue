@@ -3,7 +3,8 @@
     <!-- 장르 dropdown-->
     <label for="genre">장르</label>
     <select v-model="selectedGenre" id="genre">
-        <option disabled value="">전체</option>
+        <option disabled value="">선택</option>
+        <option>전체</option>
         <option>액션</option>
         <option>모험</option>
         <option>애니메이션</option>
@@ -28,7 +29,7 @@
     <!--영화목록-->
     <div class="row row-cols-3 row-cols-md-5">
       <MovieCard 
-      v-for="(movie, idx) in movies"
+      v-for="(movie, idx) in selectedMovies"
       :key="idx"
       :movie="movie"
       data-toggle="modal" 
@@ -73,6 +74,7 @@ export default {
  data: function () {
     return {
         selectedGenre: '',
+        selectedMovies: [],
         article: {
           movie_pk: 0,
           content: '',
@@ -111,6 +113,16 @@ export default {
       return this.$store.state.clickedMovie
     },
  },
+ watch: {
+    selectedGenre: function () {
+      if (this.selectedGenre === '전체') {
+        this.selectedMovies = this.movies
+      }
+      else {
+        this.selectedMovies = this.movies.filter(movie => movie.genres.includes(this.selectedGenre))
+      }
+    }
+ }
 }
 </script>
 
