@@ -6,7 +6,7 @@
       <span 
       v-for="(genre, idx) in genres"
       :key="idx">
-      {{ genre.name }} </span>
+      {{ genre}} </span>
       <span> / {{ movie[0].release_date }} </span>
     </p>
   </div>
