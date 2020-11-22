@@ -44,7 +44,6 @@
 
 <script>
 import { Slide } from 'vue-burger-menu' 
-// import slide from './views/Menu/slide'
 
 export default {
   name: 'App',

@@ -1,7 +1,7 @@
 <template>
-    <a class="video-list-item">
-        <img :src="youtubeImageSrc" alt="유튜브 영상">
-    </a>   
+    <div class="video-container">
+      <iframe :src="videoURI" frameborder="0"></iframe>
+    </div>
 </template>
 
 <script>
@@ -13,9 +13,10 @@ export default {
         }
     },
     computed: {
-       youtubeImageSrc: function () {
-            return this.video.snippet.thumbnails.default.url
-        }
+        videoURI: function () {
+            const videoId = this.video.id.videoId
+            return `https://www.youtube.com/embed/${videoId}`
+        },
     },
 }
 </script>
@@ -26,7 +27,6 @@ export default {
     align-items: center;
     margin-bottom: 1rem;
     cursor: pointer;
-    /* height: 90px; */
 }
 .video-list-item > img {
     height: fit-content; /* 텍스트 늘어나도 이미지는 원래 사이즈 유지 */

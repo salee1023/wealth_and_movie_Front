@@ -1,12 +1,12 @@
 <template>
   <div>
-      <h1>RecentReview</h1>
-      <div 
-      v-for="(review, idx) in this.reviews"
-      :key="idx"
-      >
-        {{ review.content }}
-      </div>
+    <strong><h1 class="text-left">RecentReview</h1></strong>
+    <li id="reviews"
+    v-for="(review, idx) in this.reviews"
+    :key="idx"
+    >
+    {{ review.content }}
+    </li>
   </div>
 </template>
 
@@ -47,5 +47,9 @@ export default {
 </script>
 
 <style>
-
+#reviews {
+  margin-left: 1rem;
+  list-style: square;
+  text-align: left;
+}
 </style>
