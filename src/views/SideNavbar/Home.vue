@@ -13,7 +13,7 @@
       </section>
       <hr>
       <Comments/>
-      <hr>
+      
       <Recommend/>
     </section>
 
@@ -47,6 +47,7 @@ export default {
   created: function () {
     this.$store.dispatch('getMovies')
     this.$store.dispatch('getReviews')
+    this.$store.dispatch('initializeSearchedMovie')
   }
 }
 </script>

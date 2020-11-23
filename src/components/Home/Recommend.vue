@@ -1,6 +1,7 @@
 <template>
   <div>
-      <strong><h1 class="text-left">Recommendation</h1></strong>
+      <h1 class="text-left"><strong>Recommendation</strong></h1>
+      <br><br><br><br><br>
   </div>
 </template>
 
