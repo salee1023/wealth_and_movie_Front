@@ -86,14 +86,18 @@ export default new Vuex.Store({
     FOLLOW: function (state, username) {
       const config = {
         headers: {
-          username: state.username,
           Authorization: `JWT ${localStorage.getItem('jwt')}`,
         }
       }
 
-      axios.post(`${SERVER_URL}/accounts/${username}/`, config)
+      axios.post(`${SERVER_URL}/accounts/${username}/`, {username: state.username}, config)
         .then(res => {
-          console.log(res)
+          if (res.data.follow) {
+            state.profile.followers.push(state.username)
+          } else {
+            const idx = state.profile.followers.indexOf(state.username)
+            state.profile.followers.splice(idx, 1)
+          }
         })
         .catch(err => {
           console.log(err)

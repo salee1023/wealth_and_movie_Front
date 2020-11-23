@@ -174,7 +174,7 @@ export default {
  },
  
  created: function () {
-   this.selectedMovies = this.movies
+   this.selectedMovies = this.$store.state.movies
  }
 }
 </script>

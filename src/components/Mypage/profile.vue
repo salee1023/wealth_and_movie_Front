@@ -6,7 +6,8 @@
     >
       <input
       type="text"
-      class="form-control" 
+      class="form-control"
+      v-model="searchInput"
       placeholder="사용자를 검색해주세요"
       @keypress.enter="onEnter" 
       @click="onKey"
@@ -27,10 +28,9 @@
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
                     <div class="media align-items-end profile-head">
-                        <div class="profile mr-3"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail"><button @click="follow" class="btn btn-outline-dark btn-sm btn-block">Follow</button></div>
+                        <div class="profile mr-3"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail"><button v-if="followable" @click="follow" class="btn btn-outline-dark btn-sm btn-block">Follow</button></div>
                         <div class="media-body mb-5 text-white">
                             <h2 class="mt-0 mb-0">{{ profile.username }}</h2>
-                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
                         </div>
                     </div>
                 </div>
@@ -38,6 +38,9 @@
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
                             <h5 class="font-weight-bold mb-0 d-block">{{ profile.articles.length }}</h5><small class="text-muted">Articles</small>
+                        </li>
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">{{ profile.comments.length }}</h5><small class="text-muted">Comments</small>
                         </li>
                         <li class="list-inline-item">
                             <h5 class="font-weight-bold mb-0 d-block">{{ profile.followers.length }}</h5><small class="text-muted">Follower</small>
@@ -60,8 +63,8 @@
                       <h5 class="mb-0">Recent photos</h5><a href="#" class="btn btn-link text-muted">Show all</a>
                     </div>
                     <div class="row">
-                      <div class="col-lg-6 mb-2 pr-lg-1" v-for="(review, idx) in profile.articles" :key="idx">
-                        <ReviewCard :movie="review"/>
+                      <div class="col-lg-4 mb-2 pr-lg-1" v-for="(article, idx) in profile.articles" :key="idx">
+                        <ReviewCard :article="article"/>
                       </div>
                     </div>
                 </div>
@@ -86,14 +89,16 @@ export default {
     }
   },
   computed: {
+    followable () {
+      return this.profile.username != this.$store.state.username
+    },
     ...mapState(['profile']),
   },
   methods: {
     follow: function () {
       this.$store.dispatch('follow', this.profile.username)
     },
-    onEnter: function (event) {
-      this.searchInput = event.target.value
+    onEnter: function () {
       this.$store.dispatch('getProfile', this.searchInput)
     },
     onKey: function (event) {
@@ -105,7 +110,7 @@ export default {
 
 <style>
 .profile-head {
-    transform: translateY(5rem)
+    transform: translateY(3rem)
 }
 
 .cover {
