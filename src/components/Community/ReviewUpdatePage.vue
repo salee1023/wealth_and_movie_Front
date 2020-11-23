@@ -2,19 +2,27 @@
   <div class="jumbotron jumbotron-fluid p-3 mt-5 text-dark" id="review-page">
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="text-left mx-3">{{ clickedReview.user }}</h3>
-      <div class="mx-5">⭐: {{ clickedReview.rank }}</div>
+      <star-rating
+        v-model="article.rating"
+        active-color="purple"
+        :star-size="40"
+        class="mx-4"
+      >
+      </star-rating>
     </div>
     <hr class="bg-dark" />
-    <div>
-      <h4 class="text-left ml-3">{{ clickedReview.content }}</h4>
-      <p class="text-right mx-5">
-        {{ clickedReview.created_at }} | {{ clickedReview.updated_at }}
-      </p>
+    <div class="mx-4">
+      <textarea
+        class="form-control"
+        id="review"
+        rows="5"
+        placeholder="리뷰를 작성해주세요"
+        v-model="article.content"
+      ></textarea>
     </div>
     <hr class="bg-dark" />
     <div class="d-flex align-items-center">
       <p class="text-left mx-3">👍 : {{ clickedReview.like_users.length }}</p>
-      <button class="btn btn-outline-danger">좋아요👍</button>
     </div>
     <hr class="bg-dark" />
     <div>
@@ -25,12 +33,12 @@
       v-if="username === clickedReview.user"
       class="d-flex justify-content-end mx-3 mt-2"
     >
-      <button 
-        type="button" 
-        class="btn btn-secondary text-white mx-1"
+      <button
+        type="button"
+        class="btn btn-info text-white mx-1"
         @click="updateReview"
       >
-        수정
+        수정완료
       </button>
       <button
         type="button"
@@ -57,7 +65,13 @@
             <h1 class="mb-0"><strong>정말 삭제하시겠습니까?</strong></h1>
           </div>
           <div class="modal-body">
-          <b-button variant="danger" class="m-3 text-light" data-dismiss="modal" @click="deleteReview">삭제</b-button>
+            <b-button
+              variant="danger"
+              class="m-3 text-light"
+              data-dismiss="modal"
+              @click="deleteReview"
+              >삭제</b-button
+            >
           </div>
         </div>
       </div>
@@ -67,16 +81,25 @@
 
 <script>
 import axios from "axios"
+import StarRating from "vue-star-rating"
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
-  name: "ReviewPage",
+  name: "ReviewUpdatePage",
+  components: {
+    StarRating,
+  },
+  data: function () {
+    return {
+      article: {
+        content: "",
+        rating: 0,
+      },
+    };
+  },
   computed: {
     clickedReview: function () {
       return this.$store.state.clickedReview
-    },
-    clickedMovie: function () {
-      return this.$store.state.clickedMovie
     },
     username: function () {
       return this.$store.state.username
@@ -90,30 +113,41 @@ export default {
         headers: {
           Authorization: `JWT ${token}`,
         },
-      }
+      };
       return config
     },
     gotoHome: function () {
       this.$router.push({ name: "Home" })
     },
     updateReview: function () {
-      this.$router.push({ name: "ReviewUpdatePage" })
-    },
-    deleteReview: function () {
-      const config = this.setToken()
+      const config = this.setToken();
       const review_pk = this.clickedReview.id
 
-      axios.delete(`${SERVER_URL}/articles/${review_pk}/`, config)
+      axios
+        .put(`${SERVER_URL}/articles/${review_pk}/`, config)
+        .then(() => {
+          this.$store.dispatch("getReview", this.clickedReview.id)
+          this.$router.push({ name: "ReviewPage" })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    deleteReview: function () {
+      const config = this.setToken();
+      const review_pk = this.clickedReview.id
+
+      axios.delete(`${SERVER_URL}/articles/${review_pk}/`, this.article, config)
         .then(() => {
           this.$router.push({ name: "Community" })
         })
         .catch((err) => {
           console.log(err)
         })
-    }
+    },
   },
   created: function () {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   },
 };
 </script>
@@ -123,5 +157,4 @@ export default {
   width: 50%;
   margin: 0 auto;
 }
-
 </style>

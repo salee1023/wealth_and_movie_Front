@@ -2,16 +2,13 @@
   <div id="app">
     <!--우측 상단 Navbar-->
     <nav class="mx-5 mt-4">
+      <!--로그인 일 때-->
       <ul class="nav justify-content-end" v-if="isLogin">
-        <li class="nav-item">
-          <button
-            class="btn btn-danger m-3 text-light"
-            data-toggle="modal"
-            data-target="#logoutModal"
-          >
-            LOGOUT
-          </button>
+        <li class="nav-item d-flex align-items-center">
+          <h3>반가워요, {{ username }}</h3>
+          <b-button pill variant="danger" class="m-3" data-toggle="modal" data-target="#logoutModal">LOGOUT</b-button>
 
+          <!--Logout Modal-->
           <div class="modal fade text-dark" id="logoutModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -19,39 +16,30 @@
                   <h1 class="mb-0"><strong>ARE YOU SURE?</strong></h1>
                 </div>
                 <div class="modal-body">
-                  <button
-                    class="btn btn-danger m-3"
-                    data-dismiss="modal"
-                    @click="logout"
-                  >
-                    로그아웃
-                  </button>
+                <b-button pill variant="danger" class="m-3 text-light" data-dismiss="modal" @click="logout">LOGOUT</b-button>
                 </div>
               </div>
             </div>
           </div>
         </li>
       </ul>
+      <!-- 로그아웃 일 때 -->
       <ul class="nav justify-content-end" v-else>
         <li class="nav-item">
           <h3>
-            <router-link to="/accounts/signup" class="nav-link text-light"
-              >Signup</router-link
-            >
+            <router-link to="/accounts/signup" class="nav-link text-light">Signup</router-link>
           </h3>
         </li>
         <li class="nav-item">
           <h3>
-            <router-link to="/accounts/login" class="nav-link text-light"
-              >Login</router-link
-            >
+            <router-link to="/accounts/login" class="nav-link text-light">Login</router-link>
           </h3>
         </li>
       </ul>
     </nav>
 
     <!--우측 버거메뉴-->
-    <Slide :closeOnNavigation="true" noOverlay width="300" class="mx-3 mt-5">
+    <Slide :closeOnNavigation="true" noOverlay width="400" class="mx-3 mt-5">
       <router-link to="/">
         <span>Home</span>
       </router-link>
@@ -66,8 +54,10 @@
       </router-link>
     </Slide>
 
+    <!-- 컴포넌트 구간 -->
     <router-view />
 
+    <!-- Scroll Top Button -->
     <v-fab-transition>
       <v-btn
         bottom
@@ -93,7 +83,6 @@ export default {
   name: "App",
   data: function () {
     return {
-      is_open: false,
       btnShow: false,
       isLogout: false,
     };
@@ -102,9 +91,8 @@ export default {
     Slide,
   },
   methods: {
-    // 로그인 확인용 token 발급
     setToken: function () {
-      const token = localStorage.getItem("jwt");
+      const token = localStorage.getItem("jwt")
 
       const config = {
         headers: {
@@ -113,36 +101,35 @@ export default {
       };
       return config;
     },
-    isopen: function () {
-      this.is_open = !this.is_open;
-    },
     handleScroll: function () {
-      this.btnShow = window.scrollY > 400;
+      this.btnShow = window.scrollY > 400
     },
     gotoHeader: function () {
       window.scrollTo(0, 0);
     },
     logout: function () {
-      localStorage.removeItem("jwt");
-      this.$store.dispatch("logout");
-      this.$forceUpdate();
-      this.$router.push({ name: "Home" });
+      localStorage.removeItem("jwt")
+      this.$store.dispatch("logout")
+      this.$router.push({ name: "Home" })
     },
   },
   computed: {
     isLogin: function () {
-      return this.$store.state.is_login;
+      return this.$store.state.is_login
+    },
+    username: function () {
+      return this.$store.state.username
     },
   },
   created: function () {
-    this.$store.dispatch("getMovies");
-    this.$store.dispatch("getReviews");
+    this.$store.dispatch("getMovies")
+    this.$store.dispatch("getReviews")
   },
   beforeMount: function () {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll)
   },
   beforeDestroy: function () {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll)
   },
 };
 </script>

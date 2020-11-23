@@ -25,6 +25,8 @@ export default {
     } else {
       this.$store.dispatch("getProfile", this.$store.state.username);
     }
+
+    window.scrollTo(0, 0)
   },
 };
 </script>
