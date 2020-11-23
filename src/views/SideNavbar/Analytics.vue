@@ -13,6 +13,7 @@ export default {
     if (isLogin === false) {
       this.$router.push({ name: "Login" });
     }
+    window.scrollTo(0, 0)
   },
 };
 </script>

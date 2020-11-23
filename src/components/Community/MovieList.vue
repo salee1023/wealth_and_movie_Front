@@ -67,6 +67,7 @@
                   id="review"
                   rows="5"
                   v-model="article.content"
+                  placeholder="리뷰를 작성해주세요"
                 ></textarea>
                 <div class="d-flex justify-content-center my-2">
                   <star-rating
@@ -131,10 +132,10 @@
 </template>
 
 <script>
-import axios from "axios";
-import MovieCard from "@/components/Community/MovieCard";
-import StarRating from "vue-star-rating";
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from "axios"
+import MovieCard from "@/components/Community/MovieCard"
+import StarRating from "vue-star-rating"
+const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name: "MovieList",
@@ -167,9 +168,9 @@ export default {
     },
     createReview: function () {
       const config = this.setToken();
-      this.article.movie_pk = this.clickedMovie.id;
-      axios
-        .post(`${SERVER_URL}/articles/`, this.article, config)
+      this.article.movie_pk = this.clickedMovie.id
+
+      axios.post(`${SERVER_URL}/articles/`, this.article, config)
         .then(() => {
           this.article.content = "";
           this.$store.dispatch("getReviews");
@@ -179,7 +180,8 @@ export default {
         });
     },
     clickedReview: function (review) {
-      this.$store.dispatch("clickedReview", review);
+      this.$store.dispatch("clickedReview", review)
+      this.$router.push({ name: 'ReviewPage'})
     },
   },
   computed: {

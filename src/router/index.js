@@ -6,6 +6,8 @@ import Community from '../views/SideNavbar/Community.vue'
 import Analytics from '../views/SideNavbar/Analytics.vue'
 import Signup from '../views/Accounts/Signup.vue'
 import Login from '../views/Accounts/Login.vue'
+import ReviewPage from '@/components/Community/ReviewPage.vue'
+import ReviewUpdatePage from '@/components/Community/ReviewUpdatePage.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,16 @@ const routes = [
     path: '/community',
     name: 'Community',
     component: Community
+  },
+  {
+    path: '/community/reviewpage',
+    name: 'ReviewPage',
+    component: ReviewPage
+  },
+  {
+    path: '/community/reviewupdate',
+    name: 'ReviewUpdatePage',
+    component: ReviewUpdatePage
   },
   {
     path: '/analytics',

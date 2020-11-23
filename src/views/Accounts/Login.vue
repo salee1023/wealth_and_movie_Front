@@ -73,7 +73,7 @@ export default {
 <style>
 #login {
   border: 3pt groove lightgrey;
-  width: 40%;
+  width: 30%;
   padding: 10px 10px 10px 10px;
   margin: 30px auto;
 }

@@ -54,6 +54,21 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    GET_REVIEW: function (state, reviewId) {
+      const config = {
+        headers: {
+          Authorization: `JWT ${localStorage.getItem('jwt')}`
+        }
+      }
+
+      axios.get(`${SERVER_URL}/articles/${reviewId}/`, config)
+        .then(res => {
+          state.clickedReview = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     GET_MOVIE_REVIEWS: function (state, movieId) {
       state.movieReviews = state.reviews.filter(review => review.movie === movieId)
     },
@@ -153,6 +168,9 @@ export default new Vuex.Store({
     },
     getReviews({ commit }) {
       commit('GET_REVIEWS')
+    },
+    getReview({ commit }, reviewId) {
+      commit('GET_REVIEW', reviewId)
     },
     getMovieReviews({ commit }, movieId) {
       commit('GET_MOVIE_REVIEWS', movieId)

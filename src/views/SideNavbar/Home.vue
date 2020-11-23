@@ -46,9 +46,10 @@ export default {
     },
   },
   created: function () {
-    this.$store.dispatch("initialize");
-    this.$store.dispatch("getMovies");
-    this.$store.dispatch("getReviews");
+    this.$store.dispatch("initialize")
+    this.$store.dispatch("getMovies")
+    this.$store.dispatch("getReviews")
+    window.scrollTo(0, 0)
   },
 };
 </script>
