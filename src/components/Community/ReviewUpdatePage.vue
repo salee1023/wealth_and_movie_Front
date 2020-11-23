@@ -120,11 +120,10 @@ export default {
       this.$router.push({ name: "Home" })
     },
     updateReview: function () {
-      const config = this.setToken();
+      const config = this.setToken()
       const review_pk = this.clickedReview.id
 
-      axios
-        .put(`${SERVER_URL}/articles/${review_pk}/`, config)
+      axios.put(`${SERVER_URL}/articles/${review_pk}/`, this.article, config)
         .then(() => {
           this.$store.dispatch("getReview", this.clickedReview.id)
           this.$router.push({ name: "ReviewPage" })
@@ -137,7 +136,7 @@ export default {
       const config = this.setToken();
       const review_pk = this.clickedReview.id
 
-      axios.delete(`${SERVER_URL}/articles/${review_pk}/`, this.article, config)
+      axios.delete(`${SERVER_URL}/articles/${review_pk}/`, config)
         .then(() => {
           this.$router.push({ name: "Community" })
         })

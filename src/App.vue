@@ -5,7 +5,7 @@
       <!--로그인 일 때-->
       <ul class="nav justify-content-end" v-if="isLogin">
         <li class="nav-item d-flex align-items-center">
-          <h3>반가워요, {{ username }}</h3>
+          <h3 class="m-0">반가워요, {{ username }}</h3>
           <b-button pill variant="danger" class="m-3" data-toggle="modal" data-target="#logoutModal">LOGOUT</b-button>
 
           <!--Logout Modal-->

@@ -18,7 +18,7 @@
 import MovieList from "@/components/Community/MovieList"
 import RecentReview from "@/components/Community/RecentReview"
 import BestReviewer from "@/components/Community/BestReviewer"
-// import ReviewPage from "@/components/Community/ReviewPage"
+
 import axios from "axios"
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -28,7 +28,6 @@ export default {
     MovieList,
     RecentReview,
     BestReviewer,
-    // ReviewPage,
   },
   methods: {
     setToken: function () {
