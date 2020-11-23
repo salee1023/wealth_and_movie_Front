@@ -1,7 +1,7 @@
 <template>
   <div class="movie-detail">
-    <p>줄거리</p>
-    <p id="overview">{{ movie[0].overview }}</p>
+    <h5 class="text-left"><strong>OVERVIEW</strong></h5><br>
+    <p id="overview">{{ movie[0].overview }}</p><br>
     <p>
       <span 
       v-for="(genre, idx) in genres"

@@ -1,20 +1,20 @@
 <template>
-  <div class="jumbotron jumbotron-fluid py-3 mt-5">
+  <div class="jumbotron jumbotron-fluid py-3 mt-5 text-dark">
     <div class="d-flex justify-content-between align-items-center">
         <h3 class="text-left mx-3">{{ clickedReview.user }}</h3>
         <div class="mx-3">⭐: {{ clickedReview.rank }}</div>
     </div>
-    <hr>
+    <hr class="bg-dark">
     <div>
         <h4 class="text-left ml-3">{{ clickedReview.content }}</h4>
         <p class="text-right mx-3">{{ clickedReview.created_at }} | {{ clickedReview.updated_at}}</p>
     </div>
-    <hr>
+    <hr class="bg-dark">
     <div class="d-flex align-items-center">
         <p class="text-left mx-3">👍 : {{ clickedReview.like_users.length }}</p>
         <button class="btn btn-outline-danger">좋아요👍</button>
     </div>
-    <hr>
+    <hr class="bg-dark">
     <div>
         <p class="text-center"> 댓글 </p>
     </div>

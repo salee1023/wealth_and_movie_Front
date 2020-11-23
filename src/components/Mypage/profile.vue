@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-dark">
     <div 
     class="search-bar input-group w-50"
     style="margin: auto;"

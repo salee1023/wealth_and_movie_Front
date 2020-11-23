@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <!--우측 상단 Navbar-->
-    <nav class="mx-3">
+    <nav class="mx-5 mt-4">
       <ul class="nav justify-content-end" v-if="isLogin">
         <li class="nav-item">
-          <router-link to="/accounts/logout" class="nav-link">Logout</router-link>
+          <h3><router-link to="/accounts/logout" class="nav-link text-light">Logout</router-link></h3>
         </li>
       </ul>
       <ul class="nav justify-content-end" v-else>
         <li class="nav-item">
-          <router-link to="/accounts/signup" class="nav-link">Signup</router-link>
+          <h3><router-link to="/accounts/signup" class="nav-link text-light">Signup</router-link></h3>
         </li>
         <li class="nav-item">
-          <router-link to="/accounts/login" class="nav-link">Login</router-link>
+          <h3><router-link to="/accounts/login" class="nav-link text-light">Login</router-link></h3>
         </li>
       </ul>
     </nav>
@@ -22,6 +22,7 @@
       :closeOnNavigation="true"
       noOverlay
       width="300"
+      class="mx-3 mt-5"
     >
       <router-link to="/">
         <span>Home</span>
@@ -87,12 +88,11 @@ export default {
 
 <style>
 #app {
-  margin-top: 40px;
   font-family: 'Raleway', sans-serif; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #EDE8F1;
 }
 #korea {
   font-family: 'Nanum Gothic Coding', monospace;
@@ -103,16 +103,33 @@ export default {
 
 #nav ul.li.router-link {
   font-weight: bold;
-  color: #2c3e50;
+  color: #EDE8F1;
 }
 
 #nav a.router-link-exact-active {
-  color: #5b27ab;
+  color: #EDE8F1;
 }
-
-li > a {
-  font-weight: bold;
-  color: black;
+.bm-burger-button {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  left: 36px;
+  top: 36px;
+  cursor: pointer;
+}
+.bm-burger-bars {
+  background-color: #EDE8F1;
+}
+.bm-item-list {
+  color: #EDE8F1;
+  margin-left: 10%;
+  font-size: 30px;
+}
+.bm-menu {
+  background-color:#1B171F; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
 }
 
 nav> a:hover {

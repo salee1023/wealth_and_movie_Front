@@ -53,8 +53,8 @@
                 <div class="d-flex justify-content-center my-2">
                 <star-rating v-model="article.rating" active-color="purple"></star-rating>
                 </div>
-                <button type="submit" class="btn btn-secondary my-3 text-white">리뷰작성</button>    
-                <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button>    
+                <button type="submit" class="btn btn-info my-3 text-white">리뷰작성</button>    
+                <button class="btn btn-danger m-3" data-dismiss="modal">닫기</button>    
               </div>
             </form>
           </div>
