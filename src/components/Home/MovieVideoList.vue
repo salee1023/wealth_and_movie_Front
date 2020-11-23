@@ -1,27 +1,27 @@
 <template>
   <div class="video-list">
     <MovieVideoListItem
-    v-for="(video, idx) in videos"
-    :key="idx"
-    :video="video"
+      v-for="(video, idx) in videos"
+      :key="idx"
+      :video="video"
     />
   </div>
 </template>
 
 <script>
-import MovieVideoListItem from '@/components/Home/MovieVideoListItem.vue'
+import MovieVideoListItem from "@/components/Home/MovieVideoListItem.vue";
 
 export default {
-    name: 'MovieVideoList',
-    components: {
-      MovieVideoListItem,
+  name: "MovieVideoList",
+  components: {
+    MovieVideoListItem,
+  },
+  computed: {
+    videos: function () {
+      return this.$store.state.videos;
     },
-    computed: {
-      videos: function () {
-        return this.$store.state.videos
-      }
-    }
-}
+  },
+};
 </script>
 
 <style>
