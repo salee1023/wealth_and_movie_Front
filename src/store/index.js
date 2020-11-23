@@ -136,8 +136,9 @@ export default new Vuex.Store({
     CLICKED_REVIEW: function (state, review) {
       state.clickedReview = review
     },
-    INITIALIZE_SEARCHED_MOVIE: function (state) {
+    INITIALIZE: function (state) {
       state.searchedMovie = null
+      state.clickedReview = null
     }
   },
   actions: {
@@ -174,8 +175,8 @@ export default new Vuex.Store({
     clickedReview({ commit }, review) {
       commit('CLICKED_REVIEW', review)
     },
-    initializeSearchedMovie({ commit }) {
-      commit('INITIALIZE_SEARCHED_MOVIE')
+    initialize({ commit }) {
+      commit('INITIALIZE')
     },
   },
   plugins: [createPersistedState()],

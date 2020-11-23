@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <header>
-        <h5>우리 프로젝트 이름 부귀영화어때??? 보면 매터모스트 ㄱㄱ</h5>  
+        <h5>배경 마음에 안들면 말해ㅎㅎㅎㅎㅎ</h5> 
       <Search-bar/>
     </header>
     <!--movie정보가 있을 때 show-->
@@ -11,10 +11,12 @@
         <article id="detail-info"><MovieDetail/></article>
         <aside id="detail-movie"><MovieVideoList/></aside>
       </section>
-      <hr>
-      <Comments/>
-      
-      <Recommend/>
+      <section id="comments">
+        <Comments/>
+      </section>
+      <section id="recommend">
+        <Recommend/>
+      </section>
     </section>
 
   </div>
@@ -57,15 +59,18 @@ header,
 #movie {
   width: 60%; /* 너비 80% 만큼 차지 */
   margin: 0 auto; /* 양 옆 마진 똑같이 */
-  padding: 1rem 0;
+  padding: 1rem 3rem;
 }
-#details {
+#details,
+#comments,
+#recommend {
   display: flex;
+  padding: 1rem 1rem;
+  background-color: rgb(0, 0, 0, 0.6);
 }
 #detail-info {
   width: 90%;
-  margin-top: 1rem;
-  margin-right: 1rem;
+  margin: 2rem 1rem 1rem 1rem;
   border-right: 3pt groove lightgrey;
 }
 aside {

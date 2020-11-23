@@ -37,11 +37,13 @@ export default {
       }
     },
     created: function () {
-    const isLogin = this.$store.state.is_login
+      const isLogin = this.$store.state.is_login
 
-    if (isLogin === false) {
-      this.$router.push({ name: 'Login' })
+      if (isLogin === false) {
+        this.$router.push({ name: 'Login' })
       }
+
+      this.$store.dispatch('initialize')
     },
 }
 </script>
@@ -51,6 +53,7 @@ export default {
   width: 80%; /* 너비 80% 만큼 차지 */
   margin: 0 auto; /* 양 옆 마진 똑같이 */
   padding: 1rem 0;
+  color: black;
 }
 #community-title {
   font-size: 5rem;

@@ -1,6 +1,6 @@
 <template>
   <div 
-  class="search-bar input-group" 
+  class="search-bar input-group input-group-lg" 
   :style="{ margin: searchInput ? '0' : '30vh 0' }"
   >
     <input 

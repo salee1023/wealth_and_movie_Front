@@ -12,11 +12,11 @@
               color="#000000"
             > 
             <div>
-              <h5><strong>{{ movie.title }}</strong></h5>
-              <p class="my-2 text-center">⭐: {{ movieRate }}</p>
+              <h3><strong>{{ movie.title }}</strong></h3>
+              <h5 class="my-4 text-center">⭐: {{ movieRate }}</h5>
             </div>
               <button 
-              class="btn btn-danger mx-1" 
+              class="btn btn-info mx-1" 
               @click="clickMovie" 
               data-toggle="modal" 
               data-target="#reviewFormModal"
@@ -24,7 +24,7 @@
               리뷰쓰기
               </button>
               <button 
-              class="btn btn-danger mx-1" 
+              class="btn btn-warning mx-1" 
               @click="getMovieReviews"
               data-toggle="modal" 
               data-target="#reviewsModal"
