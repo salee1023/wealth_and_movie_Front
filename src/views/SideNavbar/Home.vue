@@ -1,38 +1,37 @@
 <template>
   <div class="home">
     <header>
-        <h5>배경 마음에 안들면 말해ㅎㅎㅎㅎㅎ</h5> 
-      <Search-bar/>
+      <h5>플젝플젝</h5>
+      <Search-bar />
     </header>
     <!--movie정보가 있을 때 show-->
     <section id="movie" v-if="searchData">
-      <Movie/>
+      <Movie />
       <section id="details">
-        <article id="detail-info"><MovieDetail/></article>
-        <aside id="detail-movie"><MovieVideoList/></aside>
+        <article id="detail-info"><MovieDetail /></article>
+        <aside id="detail-movie"><MovieVideoList /></aside>
       </section>
       <section id="comments">
-        <Comments/>
+        <Comments />
       </section>
       <section id="recommend">
-        <Recommend/>
+        <Recommend />
       </section>
     </section>
-
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SearchBar from '@/components/Home/SearchBar'
-import Movie from '@/components/Home/Movie' 
-import MovieDetail from '@/components/Home/MovieDetail' 
-import MovieVideoList from '@/components/Home/MovieVideoList' 
-import Comments from '@/components/Home/Comments' 
-import Recommend from '@/components/Home/Recommend' 
+import SearchBar from "@/components/Home/SearchBar";
+import Movie from "@/components/Home/Movie";
+import MovieDetail from "@/components/Home/MovieDetail";
+import MovieVideoList from "@/components/Home/MovieVideoList";
+import Comments from "@/components/Home/Comments";
+import Recommend from "@/components/Home/Recommend";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     SearchBar,
     Movie,
@@ -43,15 +42,15 @@ export default {
   },
   computed: {
     searchData: function () {
-      return this.$store.state.searchedMovie
-    } 
+      return this.$store.state.searchedMovie;
+    },
   },
   created: function () {
-    this.$store.dispatch('getMovies')
-    this.$store.dispatch('getReviews')
-    this.$store.dispatch('initializeSearchedMovie')
-  }
-}
+    this.$store.dispatch("initialize");
+    this.$store.dispatch("getMovies");
+    this.$store.dispatch("getReviews");
+  },
+};
 </script>
 
 <style>
