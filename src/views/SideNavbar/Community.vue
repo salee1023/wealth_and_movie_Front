@@ -1,13 +1,17 @@
 <template>
   <div>
-      <h1 id="community-title"><strong>Community</strong></h1>
       <section id="community">
-        <MovieList/>
-        <hr>
-        <section id="reviews">
-          <article id="recent-review"><RecentReview/></article>
-          <aside id="bext-reviewer"><BestReviewer/></aside>
-        </section>
+      <span v-if="clickedReview">
+        <ReviewPage/>
+      </span>
+      <span v-else>
+      <h1 id="community-title"><strong>Community</strong></h1>
+          <MovieList/>    
+          <section id="reviews">
+            <article id="recent-review"><RecentReview/></article>
+            <aside id="bext-reviewer"><BestReviewer/></aside>
+          </section>
+      </span>
       </section>
       <br><br><br>
   </div>
@@ -17,6 +21,7 @@
 import MovieList from '@/components/Community/MovieList'
 import RecentReview from '@/components/Community/RecentReview'
 import BestReviewer from '@/components/Community/BestReviewer'
+import ReviewPage from '@/components/Community/ReviewPage'
 
 export default {
     name: 'Community',
@@ -24,6 +29,12 @@ export default {
       MovieList,
       RecentReview,
       BestReviewer,
+      ReviewPage,
+    },
+    computed: {
+      clickedReview: function () {
+        return this.$store.state.clickedReview
+      }
     },
     created: function () {
     const isLogin = this.$store.state.is_login

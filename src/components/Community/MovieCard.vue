@@ -10,17 +10,21 @@
               v-if="hover"
               absolute
               color="#000000"
-            >
+            > 
+            <div>
+              <h5><strong>{{ movie.title }}</strong></h5>
+              <p class="my-2 text-center">⭐: {{ movieRate }}</p>
+            </div>
               <button 
-              class="btn btn-danger mb-3" 
+              class="btn btn-danger mx-1" 
               @click="clickMovie" 
               data-toggle="modal" 
               data-target="#reviewFormModal"
               >
               리뷰쓰기
-              </button><br>
+              </button>
               <button 
-              class="btn btn-danger mb-3" 
+              class="btn btn-danger mx-1" 
               @click="getMovieReviews"
               data-toggle="modal" 
               data-target="#reviewsModal"
@@ -54,6 +58,9 @@ export default {
     computed: {
       movieImageSrc: function () {
         return this.movie.poster_path
+      },
+      movieRate: function () {
+        return this.movie.vote_average/2
       },
     },
     methods: {
