@@ -3,6 +3,7 @@
     <div 
     class="search-bar input-group w-50"
     style="margin: auto;"
+    @input="submitAutoComplete"
     >
       <input
       type="text"
@@ -21,16 +22,21 @@
         🔍
         </button>
       </div>
+      <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+        <div class="autocomplete disabled">
+        <div style="cursor: pointer" v-for="(res,i) in result" :key="i">{{ res }}</div>
+        </div>
+      </select>
     </div>
     <div class="row py-5 px-4" v-if="this.$store.state.is_login">
         <div class="col-md-7 mx-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
-                    <div class="media align-items-end profile-head">
+                    <div class="media align-items-center profile-head">
                         <div class="profile mr-3"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail"><button v-if="followable" @click="follow" class="btn btn-outline-dark btn-sm btn-block">Follow</button></div>
                         <div class="media-body mb-5 text-white">
-                            <h2 class="mt-0 mb-0">{{ profile.username }}</h2>
+                            <h2 class="mt-2 mb-0">{{ profile.username }}</h2>
                         </div>
                     </div>
                 </div>
@@ -53,9 +59,7 @@
                 <div class="px-4 py-3">
                     <h5 class="mb-0">About</h5>
                     <div class="p-4 rounded shadow-sm bg-light">
-                        <p class="font-italic mb-0">Web Developer</p>
-                        <p class="font-italic mb-0">Lives in New York</p>
-                        <p class="font-italic mb-0">Photographer</p>
+                        <p class="font-italic mb-0">{{ profile.description }}</p>
                     </div>
                 </div>
                 <div class="py-4 px-4">
@@ -86,6 +90,7 @@ export default {
   data () {
     return {
       searchInput: '',
+      result: null,
     }
   },
   computed: {
@@ -103,14 +108,27 @@ export default {
     },
     onKey: function (event) {
       event.target.value = ''
-    }
-  }
+    },
+    submitAutoComplete() {
+      const autocomplete = document.querySelector(".autocomplete")
+
+      if (this.searchInput) {
+        autocomplete.classList.remove("disabled")
+        this.result = this.profile.followings.filter((following) => {
+          return following.username.match(new RegExp("^" + this.searchInput, "i"))
+        })
+      } else {
+        this.result = null
+        autocomplete.classList.add("disabled")
+      }
+    },
+  },
 }
 </script>
 
 <style>
 .profile-head {
-    transform: translateY(3rem)
+    transform: translateY(5rem)
 }
 
 .cover {

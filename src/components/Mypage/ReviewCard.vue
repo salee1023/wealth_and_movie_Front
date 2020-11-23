@@ -29,8 +29,6 @@ export default {
           return this.article.movie.poster_path
         }
     },
-    methods: {
-    },
 }
 </script>
 
