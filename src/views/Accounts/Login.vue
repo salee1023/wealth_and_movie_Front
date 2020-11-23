@@ -10,6 +10,7 @@
           class="form-control"
           placeholder="ID를 입력해주세요"
           v-model="credentials.username"
+          required
         />
       </div>
       <div class="form-group">
@@ -20,10 +21,11 @@
           class="form-control"
           placeholder="PASSWORD를 입력해주세요"
           v-model="credentials.password"
+          required
         />
       </div>
       <small>
-        <p id="go-signup" @click="goSignup">
+        <p id="go-signup" @click="goSignup" class="text-warning">
           아직 회원이 아니신가요? 회원가입을 해보세요!
         </p>
       </small>
@@ -53,19 +55,19 @@ export default {
         .post(`${SERVER_URL}/accounts/api-token-auth/`, this.credentials)
         .then((res) => {
           localStorage.setItem("jwt", res.data.token);
-          this.$store.dispatch("login", this.credentials.username);
-          this.$router.push({ name: "Home" });
+          this.$store.dispatch("login", this.credentials.username)
+          this.$router.push({ name: "Home" })
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     goSignup: function () {
-      this.$router.push({ name: "Signup" });
+      this.$router.push({ name: "Signup" })
     },
   },
   created: function () {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0)
   },
 };
 </script>

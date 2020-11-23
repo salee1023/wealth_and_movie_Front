@@ -101,15 +101,15 @@
             <li v-for="(review, idx) in movieReviews" :key="idx" id="review">
               <h5>{{ review.user }}</h5>
               <p>{{ review.content }}</p>
-              <p>
-                {{ review.created_at }} | {{ review.updated_at }}
+              <p class="mt-2 d-flex align-items-center">
+                👍 {{ review.like_users.length }}
                 <button
                   type="button"
-                  class="btn btn-outline-info btn-sm"
+                  class="btn btn-outline-info btn-sm mx-2"
                   @click="clickedReview(review)"
                   data-dismiss="modal"
                 >
-                  Go!
+                리뷰 보기
                 </button>
               </p>
 
@@ -157,7 +157,7 @@ export default {
   },
   methods: {
     setToken: function () {
-      const token = localStorage.getItem("jwt");
+      const token = localStorage.getItem("jwt")
 
       const config = {
         headers: {
@@ -172,8 +172,8 @@ export default {
 
       axios.post(`${SERVER_URL}/articles/`, this.article, config)
         .then(() => {
-          this.article.content = "";
-          this.$store.dispatch("getReviews");
+          this.article.content = ""
+          this.$store.dispatch("getReviews")
         })
         .catch((err) => {
           console.log(err);
@@ -186,32 +186,32 @@ export default {
   },
   computed: {
     movies: function () {
-      return this.$store.state.movies;
+      return this.$store.state.movies
     },
     clickedMovie: function () {
-      return this.$store.state.clickedMovie;
+      return this.$store.state.clickedMovie
     },
     movieReviews: function () {
-      return this.$store.state.movieReviews;
+      return this.$store.state.movieReviews
     },
     username: function () {
-      return this.$store.state.username;
+      return this.$store.state.username
     },
   },
   watch: {
     selectedGenre: function () {
       if (this.selectedGenre === "전체") {
-        this.selectedMovies = this.movies;
+        this.selectedMovies = this.movies
       } else {
         this.selectedMovies = this.movies.filter((movie) =>
           movie.genres.includes(this.selectedGenre)
-        );
+        )
       }
     },
   },
 
   created: function () {
-    this.selectedMovies = this.$store.state.movies;
+    this.selectedMovies = this.$store.state.movies
   },
 };
 </script>
