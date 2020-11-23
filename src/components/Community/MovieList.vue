@@ -38,7 +38,7 @@
     </div>
 
     <!--ReviewFormModal-->
-    <div class="modal fade" id="reviewFormModal" tabindex="-1">
+    <div class="modal fade" id="reviewFormModal" tabindex="-1" v-if="clickedMovie">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-center">
@@ -64,7 +64,7 @@
 
 
     <!--ReviewsModal-->
-    <div class="modal fade" id="reviewsModal" tabindex="-1">
+    <div class="modal fade" id="reviewsModal" tabindex="-1" v-if="clickedMovie">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-center">
@@ -78,12 +78,15 @@
             >
             <h5>{{ review.user }}</h5>
             <p>{{ review.content }}</p>
-            <p>{{ review.created_at }} | {{ review.updated_at}}</p>
-
-            <div v-if="username === review.user">
-              <button type="button" class="btn btn-outline-primary"> 수정 </button>
-              <button type="button" class="btn btn-outline-danger"> 삭제 </button>        
-            </div>
+            <p>{{ review.created_at }} | {{ review.updated_at}}
+            <button 
+            type="button" 
+            class="btn btn-outline-info btn-sm "
+            @click="clickedReview(review)"
+            data-dismiss="modal"
+            >Go!</button>
+            </p>
+            
             <hr>
             </li>                                     
             <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button>    
@@ -147,6 +150,9 @@ export default {
             console.log(err)
         })
     },
+    clickedReview: function (review) {
+      this.$store.dispatch('clickedReview',review)
+    }
  },
  computed: {
     movies: function () {

@@ -20,6 +20,7 @@ export default new Vuex.Store({
     videos: [],
     movieReviews: [],
     clickedMovie: null, 
+    clickedReview: null, 
   },
   mutations: {
     GET_MOVIES: function (state) {
@@ -53,7 +54,6 @@ export default new Vuex.Store({
        })
     },
     GET_MOVIE_REVIEWS: function (state, movieId) {
-      console.log(state.reviews)
       state.movieReviews = state.reviews.filter(review => review.movie === movieId)  
     },
     GET_PROFILE: function (state, username) {
@@ -81,7 +81,10 @@ export default new Vuex.Store({
       state.is_login = false
       state.username = ''
       state.searchedMovie = null
-      state.videos = []
+      state.videos = [],
+      // state.movieReviews: [],
+      // state.clickedMovie: null, 
+      state.clickedReview = null
     },
     FOLLOW: function (state, username) {
       const config = {
@@ -129,6 +132,12 @@ export default new Vuex.Store({
     },
     CLICKED_MOVIE: function (state, movie) {
       state.clickedMovie = movie
+    },
+    CLICKED_REVIEW: function (state, review) {
+      state.clickedReview = review
+    },
+    INITIALIZE_SEARCHED_MOVIE: function (state) {
+      state.searchedMovie = null
     }
   },
   actions: {
@@ -161,6 +170,12 @@ export default new Vuex.Store({
     },
     clickedMovie({ commit }, movie) {
       commit('CLICKED_MOVIE', movie)
+    },
+    clickedReview({ commit }, review) {
+      commit('CLICKED_REVIEW', review)
+    },
+    initializeSearchedMovie({ commit }) {
+      commit('INITIALIZE_SEARCHED_MOVIE')
     },
   },
   plugins: [createPersistedState()],

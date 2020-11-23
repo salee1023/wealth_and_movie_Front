@@ -8,7 +8,6 @@ import Signup from '../views/Accounts/Signup.vue'
 import Login from '../views/Accounts/Login.vue'
 import Logout from '../views/Accounts/Logout.vue'
 
-
 Vue.use(VueRouter)
 
 const routes = [
