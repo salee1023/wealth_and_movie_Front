@@ -6,6 +6,7 @@ import Community from '../views/SideNavbar/Community.vue'
 import Analytics from '../views/SideNavbar/Analytics.vue'
 import Signup from '../views/Accounts/Signup.vue'
 import Login from '../views/Accounts/Login.vue'
+import ReviewDetail from '@/components/Mypage/ReviewDetail.vue'
 import ReviewPage from '@/components/Community/ReviewPage.vue'
 import ReviewUpdatePage from '@/components/Community/ReviewUpdatePage.vue'
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/mypage',
     name: 'Mypage',
     component: Mypage
+  },
+  {
+    path: '/mypage/reviewdetail',
+    name: 'ReviewDetail',
+    component: ReviewDetail
   },
   {
     path: '/community',

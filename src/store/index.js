@@ -70,8 +70,7 @@ export default new Vuex.Store({
         })
     },
     GET_MOVIE_REVIEWS: function (state, movieId) {
-      state.movieReviews = state.reviews.filter(review => review.movie === movieId)
-      console.log(state.movieReviews)
+      state.movieReviews = state.reviews.filter(review => review.movie.id === movieId)
     },
     GET_PROFILE: function (state, username) {
       const config = {

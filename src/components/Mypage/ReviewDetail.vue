@@ -86,7 +86,7 @@
       <button
       type="button"
       class="btn btn-outline-secondary mx-1"
-      @click="gotoCommunity"
+      @click="gotoMypage"
       >
         ↩
       </button>
@@ -145,8 +145,8 @@ export default {
       }
       return config
     },
-    gotoCommunity: function () {
-      this.$router.push({ name: "Community" })
+    gotoMypage: function () {
+      this.$router.push({ name: "Mypage" })
     },
     updateReview: function () {
       this.$router.push({ name: "ReviewUpdatePage" })
@@ -157,7 +157,7 @@ export default {
 
       axios.delete(`${SERVER_URL}/articles/${review_pk}/`, config)
         .then(() => {
-          this.$router.push({ name: "Community" })
+          this.$router.push({ name: "Mypage" })
         })
         .catch((err) => {
           console.log(err)
