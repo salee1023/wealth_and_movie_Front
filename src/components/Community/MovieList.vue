@@ -73,8 +73,10 @@
                   <star-rating
                     v-model="article.rating"
                     active-color="purple"
+                    class="mb-2"
                   ></star-rating>
                 </div>
+                <div class="alert alert-info mx-5" role="alert" v-if="is_created">후기가 작성되었습니다.</div>
                 <button type="submit" class="btn btn-info my-3 text-white">
                   리뷰작성
                 </button>
@@ -153,6 +155,7 @@ export default {
         rating: 0,
       },
       show: false,
+      is_created: false,
     };
   },
   methods: {
@@ -169,10 +172,12 @@ export default {
     createReview: function () {
       const config = this.setToken();
       this.article.movie_pk = this.clickedMovie.id
+      this.is_created = false
 
       axios.post(`${SERVER_URL}/articles/`, this.article, config)
         .then(() => {
           this.article.content = ""
+          this.is_created = true
           this.$store.dispatch("getReviews")
         })
         .catch((err) => {
