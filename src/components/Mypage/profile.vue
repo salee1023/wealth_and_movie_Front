@@ -13,6 +13,9 @@
       @keypress.enter="onEnter" 
       @click="onKey"
       >
+      <!-- <ul class="autocomplete disabled">
+        <li style="cursor: pointer" v-for="(res,i) in result" :key="i">{{ res.username }}</li>
+      </ul> -->
       <div class="input-group-append">
         <button 
         @click="onEnter" 
@@ -22,11 +25,6 @@
         🔍
         </button>
       </div>
-      <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-        <div class="autocomplete disabled">
-        <div style="cursor: pointer" v-for="(res,i) in result" :key="i">{{ res }}</div>
-        </div>
-      </select>
     </div>
     <div class="row py-5 px-4" v-if="this.$store.state.is_login">
         <div class="col-md-7 mx-auto">
@@ -140,4 +138,33 @@ export default {
 body {
     min-height: 100vh
 }
+
+#autocomplete {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.autocomplete-result {
+  border-top: 1px solid #eee;
+  padding: 16px;
+  background: transparent;
+}
+
+.group {
+  padding: 16px;
+  text-transform: uppercase;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.wiki-title {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.wiki-snippet {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
 </style>
