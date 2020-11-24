@@ -2,8 +2,15 @@
   <div class="jumbotron jumbotron-fluid p-3 mt-5 text-dark" id="review-page">
     <!--User-->
     <div class="d-flex justify-content-between align-items-center my-1">
-      <h3 class="text-left mx-3 my-1">{{ clickedReview.user }}</h3>
-      <h4 class="mx-5 my-1">⭐: {{ clickedReview.rank }}</h4>
+      <div class="d-flex align-items-center">
+        <b-avatar variant="info" size="3rem" class="mx-3 d-flex align-items-center">
+          <div class="mx-1">{{clickedReview.user}}</div>
+        </b-avatar>
+        <h3 class="text-left">{{ clickedReview.user }}</h3>
+      </div>
+      <div>
+        <h4 class="mx-5 my-1">⭐: {{ clickedReview.rank }}</h4>
+      </div>
     </div>
     <hr class="bg-dark" />
     <!--Review Content-->
@@ -28,6 +35,31 @@
     <!--Comments Form-->
     <div class="ml-3 mr-4">
       <input type="text" class="form-control" placeholder="댓글을 입력해주세요!" @keypress.enter="createComment">
+    </div>
+    <!--Comments-->
+    <div>
+      <br>
+      <ul
+        v-for="(comment, idx) in comments"
+        :key="idx"
+        id="comment"
+        class="mx-4"
+      >
+      <div class="d-flex align-items-center jstify-content-between">
+        <h5 class="text-left mb-0 mr-3">{{ comment.user }} : {{ comment.content }}</h5>
+        <p>{{ comment.updated_at }} | {{ comment.created_at }}</p>
+        <div v-if="username === comment.user" class="mx-2">
+            <button 
+              type="button" 
+              class="btn btn-sm btn-info text-light mx-1" 
+              @click="deleteComment(comment)"
+              >
+              X
+              </button>
+        </div>
+      </div>
+      </ul>
+      <br>  
     </div>
     
 
@@ -54,7 +86,7 @@
       <button
       type="button"
       class="btn btn-outline-secondary mx-1"
-      @click="gotoHome"
+      @click="gotoCommunity"
       >
         ↩
       </button>
@@ -85,6 +117,7 @@ export default {
   data: function () {
     return {
       is_liked: false,
+      comments: [],
     }
   },
   computed: {
@@ -112,8 +145,8 @@ export default {
       }
       return config
     },
-    gotoHome: function () {
-      this.$router.push({ name: "Home" })
+    gotoCommunity: function () {
+      this.$router.push({ name: "Community" })
     },
     updateReview: function () {
       this.$router.push({ name: "ReviewUpdatePage" })
@@ -149,15 +182,32 @@ export default {
 
       axios.post(`${SERVER_URL}/articles/${review_pk}/comment/`, {'content': content}, config)
         .then((res) => {
-          console.log(res)
+          this.comments.push(res.data)
+          event.target.value = ""
         })
         .catch((err) => {
           console.log(err)
         })
-    }
+    },
+    deleteComment: function (comment){
+      const config = this.setToken()
+      const review_pk = this.clickedReview.id
+      const comment_pk = comment.id
+
+      axios.delete(`${SERVER_URL}/articles/${review_pk}/comment/${comment_pk}/`, config)
+        .then((res) => {
+          console.log(res)
+          const index = this.comments.indexOf(comment)
+          this.comments.splice(index, 1)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
   },
   created: function () {
     window.scrollTo(0, 0)
+    this.comments = this.clickedReview.comments
   },
 };
 </script>
@@ -166,6 +216,10 @@ export default {
 .jumbotron {
   width: 50%;
   margin: 0 auto;
+}
+#review {
+  list-style: none;
+  text-align: left;
 }
 
 </style>

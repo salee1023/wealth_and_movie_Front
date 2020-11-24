@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import { BootstrapVueIcons } from 'bootstrap-vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -11,6 +12,7 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(BootstrapVueIcons)
 Vue.use(Vuetify)
 
 

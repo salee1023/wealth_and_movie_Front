@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
     <h1 class="text-left m-3"><strong>REVIEWS</strong></h1>
-    <hr />
+    <hr/>
     <div v-if="isLogin">
       <span v-if="movieReviews.length">
         <li
@@ -20,21 +20,17 @@
               삭제
             </button>
           </div>
-          <br />
+          <br/>
         </li>
       </span>
       <span v-else>
-        <p class="text-center my-3">아직 리뷰가 없군요!</p>
+        <br><h4 class="text-center">아직 리뷰가 없군요😂</h4>
       </span>
     </div>
 
     <div v-else class="my-5 mx-1">
-      <strong
-        ><p class="text-center my-3">
-          다른 사람의 리뷰를 보고 싶다면 로그인 하세요!
-        </p></strong
-      >
-      <b-button @click="goLogin" variant="secondary">로그인</b-button>
+      <h4 class="text-center my-3">다른 사람의 리뷰를 보고 싶다면 로그인 하세요!</h4>
+      <b-button size="lg" @click="goLogin" variant="secondary">로그인</b-button>
     </div>
   </div>
 </template>

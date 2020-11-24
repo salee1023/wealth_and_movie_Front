@@ -6,7 +6,14 @@
       <ul class="nav justify-content-end" v-if="isLogin">
         <li class="nav-item d-flex align-items-center">
           <h3 class="m-0">반가워요, {{ username }}</h3>
-          <b-button pill variant="danger" class="m-3" data-toggle="modal" data-target="#logoutModal">LOGOUT</b-button>
+          <b-button 
+            variant="outline-danger" 
+            class="mx-3" 
+            data-toggle="modal"
+            data-target="#logoutModal"
+            >
+            <b-icon icon="power"></b-icon> Logout
+          </b-button>
 
           <!--Logout Modal-->
           <div class="modal fade text-dark" id="logoutModal" tabindex="-1">
@@ -70,7 +77,7 @@
         v-show="btnShow"
         @click="gotoHeader"
       >
-        <h1>↑</h1>
+      <b-icon icon="chevron-double-up"></b-icon>
       </v-btn>
     </v-fab-transition>
   </div>
