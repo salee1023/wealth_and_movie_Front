@@ -2,28 +2,51 @@
   <div id="app">
     <!--우측 상단 Navbar-->
     <nav class="mx-5 mt-4">
+      <!--로그인 일 때-->
       <ul class="nav justify-content-end" v-if="isLogin">
-        <li class="nav-item">
-          <h3><router-link to="/accounts/logout" class="nav-link text-light">Logout</router-link></h3>
+        <li class="nav-item d-flex align-items-center">
+          <h3 class="m-0">반가워요, {{ username }}</h3>
+          <b-button 
+            variant="outline-danger" 
+            class="mx-3" 
+            data-toggle="modal"
+            data-target="#logoutModal"
+            >
+            <b-icon icon="power"></b-icon> Logout
+          </b-button>
+
+          <!--Logout Modal-->
+          <div class="modal fade text-dark" id="logoutModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center">
+                  <h1 class="mb-0"><strong>ARE YOU SURE?</strong></h1>
+                </div>
+                <div class="modal-body">
+                <b-button pill variant="danger" class="m-3 text-light" data-dismiss="modal" @click="logout">LOGOUT</b-button>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
+      <!-- 로그아웃 일 때 -->
       <ul class="nav justify-content-end" v-else>
         <li class="nav-item">
-          <h3><router-link to="/accounts/signup" class="nav-link text-light">Signup</router-link></h3>
+          <h3>
+            <router-link to="/accounts/signup" class="nav-link text-light">Signup</router-link>
+          </h3>
         </li>
         <li class="nav-item">
-          <h3><router-link to="/accounts/login" class="nav-link text-light">Login</router-link></h3>
+          <h3>
+            <router-link to="/accounts/login" class="nav-link text-light">Login</router-link>
+          </h3>
         </li>
       </ul>
     </nav>
 
     <!--우측 버거메뉴-->
-    <Slide
-      :closeOnNavigation="true"
-      noOverlay
-      width="300"
-      class="mx-3 mt-5"
-    >
+    <Slide :closeOnNavigation="true" noOverlay width="400" class="mx-3 mt-5">
       <router-link to="/">
         <span>Home</span>
       </router-link>
@@ -37,65 +60,98 @@
         <span>Analytics</span>
       </router-link>
     </Slide>
-    
-    <router-view/>
 
+    <!-- 컴포넌트 구간 -->
+    <router-view />
+
+    <!-- Scroll Top Button -->
+    <v-fab-transition>
+      <v-btn
+        bottom
+        right
+        fixed
+        fab
+        elevation="15"
+        x-large
+        class="m-2"
+        v-show="btnShow"
+        @click="gotoHeader"
+      >
+      <b-icon icon="chevron-double-up"></b-icon>
+      </v-btn>
+    </v-fab-transition>
   </div>
 </template>
 
 <script>
-import { Slide } from 'vue-burger-menu' 
+import { Slide } from "vue-burger-menu";
 
 export default {
-  name: 'App',
+  name: "App",
   data: function () {
     return {
-      is_open: false,
-    }
+      btnShow: false,
+      isLogout: false,
+    };
   },
   components: {
-      Slide,
+    Slide,
   },
   methods: {
-   // 로그인 확인용 token 발급
     setToken: function () {
-      const token = localStorage.getItem('jwt')
+      const token = localStorage.getItem("jwt")
 
       const config = {
         headers: {
-          Authorization: `JWT ${token}`
-        }
-      }
-      return config
+          Authorization: `JWT ${token}`,
+        },
+      };
+      return config;
     },
-    isopen: function () {
-      this.is_open = !this.is_open
-    }
-
+    handleScroll: function () {
+      this.btnShow = window.scrollY > 400
+    },
+    gotoHeader: function () {
+      window.scrollTo(0, 0);
+    },
+    logout: function () {
+      localStorage.removeItem("jwt")
+      this.$store.dispatch("logout")
+      this.$router.push({ name: "Home" })
+    },
   },
   computed: {
     isLogin: function () {
       return this.$store.state.is_login
-      }
+    },
+    username: function () {
+      return this.$store.state.username
+    },
   },
   created: function () {
-    this.$store.dispatch('getMovies')
-    this.$store.dispatch('getReviews')
-  }
-}
+    this.$store.dispatch("getMovies")
+    this.$store.dispatch("getReviews")
+  },
+  beforeMount: function () {
+    window.addEventListener("scroll", this.handleScroll)
+  },
+  beforeDestroy: function () {
+    window.removeEventListener("scroll", this.handleScroll)
+  },
+};
 </script>
 
 
 <style>
 #app {
-  font-family: 'Raleway', sans-serif; 
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #EDE8F1;
+  color: #ede8f1;
 }
 #korea {
-  font-family: 'Nanum Gothic Coding', monospace;
+  font-family: "Nanum Gothic Coding", monospace;
 }
 #nav {
   padding: 30px;
@@ -103,11 +159,11 @@ export default {
 
 #nav ul.li.router-link {
   font-weight: bold;
-  color: #EDE8F1;
+  color: #ede8f1;
 }
 
 #nav a.router-link-exact-active {
-  color: #EDE8F1;
+  color: #ede8f1;
 }
 .bm-burger-button {
   position: fixed;
@@ -118,21 +174,21 @@ export default {
   cursor: pointer;
 }
 .bm-burger-bars {
-  background-color: #EDE8F1;
+  background-color: #ede8f1;
 }
 .bm-item-list {
-  color: #EDE8F1;
+  color: #ede8f1;
   margin-left: 10%;
   font-size: 30px;
 }
 .bm-menu {
-  background-color:#1B171F; /* Black*/
+  background-color: #1b171f; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
 }
 
-nav> a:hover {
+nav > a:hover {
   text-decoration: none;
   font-size: 115%;
 }

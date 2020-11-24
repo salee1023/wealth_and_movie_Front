@@ -1,51 +1,75 @@
 <template>
   <div>
-      <section id="community">
-      <span v-if="clickedReview">
-        <ReviewPage/>
-      </span>
-      <span v-else>
-      <h1 id="community-title"><strong>Community</strong></h1>
-          <MovieList/>    
-          <section id="reviews">
-            <article id="recent-review"><RecentReview/></article>
-            <aside id="bext-reviewer"><BestReviewer/></aside>
-          </section>
-      </span>
+    <section id="community">
+      <h1 id="community-title" class="text-light">
+        <strong>Community</strong>
+      </h1>
+      <MovieList />
+      <section id="community-review-block">
+        <article id="recent-review"><RecentReview /></article>
+        <aside id="bext-reviewer"><BestReviewer /></aside>
       </section>
-      <br><br><br>
+    </section>
+    <br /><br /><br />
   </div>
 </template>
 
 <script>
-import MovieList from '@/components/Community/MovieList'
-import RecentReview from '@/components/Community/RecentReview'
-import BestReviewer from '@/components/Community/BestReviewer'
-import ReviewPage from '@/components/Community/ReviewPage'
+import MovieList from "@/components/Community/MovieList"
+import RecentReview from "@/components/Community/RecentReview"
+import BestReviewer from "@/components/Community/BestReviewer"
+
+import axios from "axios"
+const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
-    name: 'Community',
-    components: {
-      MovieList,
-      RecentReview,
-      BestReviewer,
-      ReviewPage,
-    },
-    computed: {
-      clickedReview: function () {
-        return this.$store.state.clickedReview
-      }
-    },
-    created: function () {
-      const isLogin = this.$store.state.is_login
+  name: "Community",
+  components: {
+    MovieList,
+    RecentReview,
+    BestReviewer,
+  },
+  methods: {
+    setToken: function () {
+      const token = localStorage.getItem("jwt")
 
-      if (isLogin === false) {
-        this.$router.push({ name: 'Login' })
-      }
-
-      this.$store.dispatch('initialize')
+      const config = {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      return config;
     },
-}
+  },
+  computed: {
+    clickedReview: function () {
+      return this.$store.state.clickedReview
+    },
+  },
+  created: function () {
+    const isLogin = this.$store.state.is_login
+    const config = this.setToken()
+
+    //선택된 영화, 리뷰 초기화
+    this.$store.dispatch("initialize")
+    this.$store.dispatch("getReviews")
+
+    if (isLogin === false) {
+      this.$router.push({ name: "Login" })
+    }
+
+    axios
+      .get(`${SERVER_URL}/articles/`, config)
+      .then((res) => {
+        this.reviews = res.data
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+    window.scrollTo(0, 0)
+  },
+};
 </script>
 
 <style>
@@ -58,8 +82,11 @@ export default {
 #community-title {
   font-size: 5rem;
 }
-#reviews {
+#community-review-block {
   display: flex;
+  padding: 1rem 1rem;
+  background-color: rgb(0, 0, 0, 0.6);
+  color: #ede8f1;
 }
 #recent-review {
   width: 70%;

@@ -3,7 +3,11 @@
     <!-- 장르 dropdown-->
     <div class="form-row mb-2">
       <div class="col-auto my-1">
-        <select class="custom-select mr-sm-2"  v-model="selectedGenre" id="genreSelect">
+        <select
+          class="custom-select mr-sm-2"
+          v-model="selectedGenre"
+          id="genreSelect"
+        >
           <option disabled value="">장르</option>
           <option>전체</option>
           <option>액션</option>
@@ -29,32 +33,54 @@
     </div>
 
     <!--영화목록-->
-    <div class="row row-cols-3 row-cols-md-5">   
-      <MovieCard 
-      v-for="(movie, idx) in selectedMovies"
-      :key="idx"
-      :movie="movie"
+    <div class="row row-cols-3 row-cols-md-5">
+      <MovieCard
+        v-for="(movie, idx) in selectedMovies"
+        :key="idx"
+        :movie="movie"
       />
     </div>
 
     <!--ReviewFormModal-->
-    <div class="modal fade" id="reviewFormModal" tabindex="-1" v-if="clickedMovie">
+    <div
+      class="modal fade"
+      id="reviewFormModal"
+      tabindex="-1"
+      v-if="clickedMovie"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-center">
-            <h1 class="mb-0"><stong>{{ clickedMovie.title }}</stong></h1>   
+            <h1 class="mb-0">
+              <strong>{{ clickedMovie.title }}</strong>
+            </h1>
           </div>
           <div class="modal-body">
             <!--ReviewForm-->
-            <form @submit.prevent="createReview"> 
+            <form @submit.prevent="createReview">
               <div class="form-group my-0">
-                <label for="review">{{ username }}님의 후기를 들려주세요😊</label>
-                <textarea class="form-control" id="review" rows="5" v-model="article.content"></textarea>             
+                <label for="review"
+                  >{{ username }}님의 후기를 들려주세요😊</label
+                >
+                <textarea
+                  class="form-control"
+                  id="review"
+                  rows="5"
+                  v-model="article.content"
+                  placeholder="리뷰를 작성해주세요"
+                ></textarea>
                 <div class="d-flex justify-content-center my-2">
-                <star-rating v-model="article.rating" active-color="purple"></star-rating>
+                  <star-rating
+                    v-model="article.rating"
+                    active-color="purple"
+                  ></star-rating>
                 </div>
-                <button type="submit" class="btn btn-info my-3 text-white">리뷰작성</button>    
-                <button class="btn btn-danger m-3" data-dismiss="modal">닫기</button>    
+                <button type="submit" class="btn btn-info my-3 text-white">
+                  리뷰작성
+                </button>
+                <button class="btn btn-danger m-3" data-dismiss="modal">
+                  닫기
+                </button>
               </div>
             </form>
           </div>
@@ -62,99 +88,103 @@
       </div>
     </div>
 
-
     <!--ReviewsModal-->
     <div class="modal fade" id="reviewsModal" tabindex="-1" v-if="clickedMovie">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header d-flex justify-content-center">
-            <h1 class="mb-0"><stong>'{{ clickedMovie.title }}' REVIEW</stong></h1>   
+            <h1 class="mb-0">
+              <strong>'{{ clickedMovie.title }}' REVIEW</strong>
+            </h1>
           </div>
-          <div class="modal-body" v-if="movieReviews.length">  
-            <li 
-            v-for="(review, idx) in movieReviews"
-            :key="idx"
-            id="review"
-            >
-            <h5>{{ review.user }}</h5>
-            <p>{{ review.content }}</p>
-            <p>{{ review.created_at }} | {{ review.updated_at}}
-            <button 
-            type="button" 
-            class="btn btn-outline-info btn-sm "
-            @click="clickedReview(review)"
-            data-dismiss="modal"
-            >Go!</button>
-            </p>
-            
-            <hr>
-            </li>                                     
-            <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button>    
-                         
+          <div class="modal-body" v-if="movieReviews.length">
+            <li v-for="(review, idx) in movieReviews" :key="idx" id="review">
+              <h5>{{ review.user }}</h5>
+              <p>{{ review.content }}</p>
+              <p class="mt-2 d-flex align-items-center">
+                👍 {{ review.like_users.length }}
+                <button
+                  type="button"
+                  class="btn btn-outline-info btn-sm mx-2"
+                  @click="clickedReview(review)"
+                  data-dismiss="modal"
+                >
+                리뷰 보기
+                </button>
+              </p>
+
+              <hr />
+            </li>
+            <button class="btn btn-secondary m-3" data-dismiss="modal">
+              닫기
+            </button>
           </div>
           <div v-else>
             <h4 class="text-center mt-4">아직 리뷰가 없군요😂</h4>
-            <button class="btn btn-secondary m-3" data-dismiss="modal">닫기</button> 
+            <button class="btn btn-secondary m-3" data-dismiss="modal">
+              닫기
+            </button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import MovieCard from '@/components/Community/MovieCard'
-import StarRating from 'vue-star-rating'
+import axios from "axios"
+import MovieCard from "@/components/Community/MovieCard"
+import StarRating from "vue-star-rating"
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
- name: 'MovieList',
- components: {
-   MovieCard,
-   StarRating,
- },
- data: function () {
+  name: "MovieList",
+  components: {
+    MovieCard,
+    StarRating,
+  },
+  data: function () {
     return {
-        selectedGenre: '',
-        selectedMovies: [],
-        article: {
-          movie_pk: 0,
-          content: '',
-          rating: 0,
-        },
-        show: false,
-    }
- },
- methods: {
+      selectedGenre: "",
+      selectedMovies: [],
+      article: {
+        movie_pk: 0,
+        content: "",
+        rating: 0,
+      },
+      show: false,
+    };
+  },
+  methods: {
     setToken: function () {
-      const token = localStorage.getItem('jwt')
+      const token = localStorage.getItem("jwt")
 
       const config = {
         headers: {
-        Authorization: `JWT ${token}`
-        }
-      }
-      return config
+          Authorization: `JWT ${token}`,
+        },
+      };
+      return config;
     },
     createReview: function () {
-      const config = this.setToken()
+      const config = this.setToken();
       this.article.movie_pk = this.clickedMovie.id
-      axios.post(`${SERVER_URL}/articles/`,  this.article, config)
+
+      axios.post(`${SERVER_URL}/articles/`, this.article, config)
         .then(() => {
-          this.article.content = ''
-          this.$store.dispatch('getReviews')
+          this.article.content = ""
+          this.$store.dispatch("getReviews")
         })
         .catch((err) => {
-            console.log(err)
-        })
+          console.log(err);
+        });
     },
     clickedReview: function (review) {
-      this.$store.dispatch('clickedReview',review)
-    }
- },
- computed: {
+      this.$store.dispatch("clickedReview", review)
+      this.$router.push({ name: 'ReviewPage'})
+    },
+  },
+  computed: {
     movies: function () {
       return this.$store.state.movies
     },
@@ -167,22 +197,23 @@ export default {
     username: function () {
       return this.$store.state.username
     },
- },
- watch: {
+  },
+  watch: {
     selectedGenre: function () {
-      if (this.selectedGenre === '전체') {
+      if (this.selectedGenre === "전체") {
         this.selectedMovies = this.movies
+      } else {
+        this.selectedMovies = this.movies.filter((movie) =>
+          movie.genres.includes(this.selectedGenre)
+        )
       }
-      else {
-        this.selectedMovies = this.movies.filter(movie => movie.genres.includes(this.selectedGenre))
-      }
-    }
- },
- 
- created: function () {
-   this.selectedMovies = this.$store.state.movies
- }
-}
+    },
+  },
+
+  created: function () {
+    this.selectedMovies = this.$store.state.movies
+  },
+};
 </script>
 
 <style>

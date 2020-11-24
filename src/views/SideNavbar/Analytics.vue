@@ -6,17 +6,17 @@
 
 <script>
 export default {
-    name: 'Analytics',
-    created: function () {
-      const isLogin = this.$store.state.is_login
+  name: "Analytics",
+  created: function () {
+    const isLogin = this.$store.state.is_login;
 
-      if (isLogin === false) {
-        this.$router.push({ name: 'Login' })
-      }
+    if (isLogin === false) {
+      this.$router.push({ name: "Login" });
     }
-}
+    window.scrollTo(0, 0)
+  },
+};
 </script>
 
 <style>
-
 </style>

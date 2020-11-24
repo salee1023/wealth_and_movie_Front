@@ -6,7 +6,8 @@ import Community from '../views/SideNavbar/Community.vue'
 import Analytics from '../views/SideNavbar/Analytics.vue'
 import Signup from '../views/Accounts/Signup.vue'
 import Login from '../views/Accounts/Login.vue'
-import Logout from '../views/Accounts/Logout.vue'
+import ReviewPage from '@/components/Community/ReviewPage.vue'
+import ReviewUpdatePage from '@/components/Community/ReviewUpdatePage.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,16 @@ const routes = [
     component: Community
   },
   {
+    path: '/community/reviewpage',
+    name: 'ReviewPage',
+    component: ReviewPage
+  },
+  {
+    path: '/community/reviewupdate',
+    name: 'ReviewUpdatePage',
+    component: ReviewUpdatePage
+  },
+  {
     path: '/analytics',
     name: 'Analytics',
     component: Analytics
@@ -40,11 +51,6 @@ const routes = [
     path: '/accounts/login',
     name: 'Login',
     component: Login
-  },
-  {
-    path: '/accounts/logout',
-    name: 'Logout',
-    component: Logout
   },
 ]
 

@@ -1,6 +1,6 @@
 <template>
   <div class="col mb-4">
-    <div class="card d-flex align-items-center" style="">
+    <!-- <div class="card d-flex align-items-center" style="">
       <h5 class="card-title mt-3">{{ this.article.movie.title }}</h5>
       <img 
       :src="movieImageSrc" 
@@ -14,26 +14,27 @@
           <button class="btn btn-danger ml-3">삭제</button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
-    name: 'ReviewCard',
-    props: {
-      article: Object,
+  name: "ReviewCard",
+  props: {
+    article: Object,
+  },
+  computed: {
+    movieImageSrc: function () {
+      return this.article.movie.poster_path;
     },
-    computed: {
-        movieImageSrc: function () {
-          return this.article.movie.poster_path
-        }
-    },
-}
+  },
+  methods: {},
+};
 </script>
 
 <style>
 img {
-height: 80%
+  height: 80%;
 }
 </style>
