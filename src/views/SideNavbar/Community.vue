@@ -2,12 +2,12 @@
   <div>
     <section id="community">
       <h1 id="community-title" class="text-light">
-        <strong>Community</strong>
+        <strong>Co<span id="dif-txt">mm</span>unity</strong>
       </h1>
       <MovieList />
       <section id="community-review-block">
-        <article id="recent-review"><RecentReview /></article>
-        <aside id="bext-reviewer"><BestReviewer /></aside>
+        <article id="recent-review"><RecentReview/></article>
+        <aside id="best-review"><BestReview/></aside>
       </section>
     </section>
     <br /><br /><br />
@@ -17,7 +17,7 @@
 <script>
 import MovieList from "@/components/Community/MovieList"
 import RecentReview from "@/components/Community/RecentReview"
-import BestReviewer from "@/components/Community/BestReviewer"
+import BestReview from "@/components/Community/BestReview"
 
 import axios from "axios"
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
@@ -27,7 +27,7 @@ export default {
   components: {
     MovieList,
     RecentReview,
-    BestReviewer,
+    BestReview,
   },
   methods: {
     setToken: function () {
@@ -89,9 +89,17 @@ export default {
   color: #ede8f1;
 }
 #recent-review {
-  width: 70%;
+  width: 50%;
   margin-top: 1rem;
   margin-right: 1rem;
   border-right: 3pt groove lightgrey;
+}
+#best-review {
+  width: 65%;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+#dif-txt {
+  color: lightcoral;
 }
 </style>

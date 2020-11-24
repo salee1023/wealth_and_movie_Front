@@ -15,7 +15,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-outline-info btn-sm mx-2"
+                class="btn btn-info btn-sm mx-2"
                 @click="clickedReview(article)"
                 data-dismiss="modal"
               >

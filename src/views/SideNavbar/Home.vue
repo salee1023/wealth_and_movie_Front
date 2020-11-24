@@ -11,10 +11,10 @@
         <aside id="detail-movie"><MovieVideoList /></aside>
       </section>
       <section id="comments">
-        <Comments />
+        <Comments/>
       </section>
       <section id="recommend">
-        <Recommend />
+        <Recommend/>
       </section>
     </section>
   </div>
@@ -22,12 +22,12 @@
 
 <script>
 // @ is an alias to /src
-import SearchBar from "@/components/Home/SearchBar";
-import Movie from "@/components/Home/Movie";
-import MovieDetail from "@/components/Home/MovieDetail";
-import MovieVideoList from "@/components/Home/MovieVideoList";
-import Comments from "@/components/Home/Comments";
-import Recommend from "@/components/Home/Recommend";
+import SearchBar from "@/components/Home/SearchBar"
+import Movie from "@/components/Home/Movie"
+import MovieDetail from "@/components/Home/MovieDetail"
+import MovieVideoList from "@/components/Home/MovieVideoList"
+import Comments from "@/components/Home/Comments"
+import Recommend from "@/components/Home/Recommend"
 
 export default {
   name: "Home",

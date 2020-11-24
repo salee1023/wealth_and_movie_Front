@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 장르 dropdown-->
-    <div class="form-row mb-2">
+    <div class="form-row mb-2 d-flex align-items-center">
       <div class="col-auto my-1">
         <select
           class="custom-select mr-sm-2"
@@ -30,6 +30,7 @@
           <option>서부</option>
         </select>
       </div>
+        <h4 class="text-light mb-0 mx-2">영화를 선택해보세요</h4>
     </div>
 
     <!--영화목록-->
@@ -80,7 +81,7 @@
                 <button type="submit" class="btn btn-info my-3 text-white">
                   리뷰작성
                 </button>
-                <button class="btn btn-danger m-3" data-dismiss="modal">
+                <button class="btn btn-danger m-3" data-dismiss="modal" @click="is_created = false">
                   닫기
                 </button>
               </div>
@@ -177,6 +178,7 @@ export default {
       axios.post(`${SERVER_URL}/articles/`, this.article, config)
         .then(() => {
           this.article.content = ""
+          this.article.rating = 0
           this.is_created = true
           this.$store.dispatch("getReviews")
         })

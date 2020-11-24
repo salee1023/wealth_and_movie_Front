@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="text-left m-3"><strong>Recent Review</strong></h1>
-    <hr />
-    <li id="reviews" v-for="(review, idx) in this.reviews" :key="idx">
+    <h1 class="text-left m-3"><strong>Best Review</strong></h1>
+    <hr/>
+    <li id="reviews" v-for="(review, idx) in this.sorted_reviews" :key="idx">
       <h5>
         <strong>{{ review.user }}</strong>
       </h5>
@@ -24,12 +24,17 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
-  name: "RecentReview",
+  name: "BestReview",
   computed: {
     reviews: function () {
-      return this.$store.state.reviews;
+      return this.$store.state.reviews
     },
+    sorted_reviews: function () {
+      return _.orderBy(this.reviews, ['like_users'], ['desc'])
+    }
   },
   methods: {
     clickedReview: function (review) {

@@ -2,6 +2,7 @@
   <div>
     <form @submit.prevent="login" id="login">
       <h1><strong>LOGIN</strong></h1>
+      <hr>
       <div class="form-group">
         <label for="userId">ID</label>
         <input
@@ -30,7 +31,7 @@
         </p>
       </small>
       <br />
-      <button type="submit" class="btn btn-secondary mb-3">로그인</button>
+      <button type="submit" class="btn btn-lg btn-info mb-3">로그인</button>
     </form>
   </div>
 </template>
@@ -74,9 +75,9 @@ export default {
 
 <style>
 #login {
-  border: 3pt groove lightgrey;
+  background-color: rgb(0, 0, 0, 0.6);
   width: 30%;
-  padding: 10px 10px 10px 10px;
+  padding: 20px 30px 20px 30px;
   margin: 30px auto;
 }
 .form-group {
@@ -85,6 +86,7 @@ export default {
 #go-signup {
   margin-top: 1rem;
   text-align: center;
+  font-size: 1.2rem;
 }
 #go-signup:hover {
   color: blue;

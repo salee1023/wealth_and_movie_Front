@@ -15,7 +15,7 @@
     <hr class="bg-dark" />
     <!--Review Content-->
     <div>
-      <h5 class="text-left ml-3"><strong>{{ clickedMovie.title }}</strong></h5><br>
+      <h5 class="text-left ml-3"><strong>{{ clickedReview.movie.title }}</strong></h5><br>
       <h4 class="text-left ml-3">"{{ clickedReview.content }}"</h4>
       <p class="text-right mx-5">
         {{ clickedReview.created_at }} | {{ clickedReview.updated_at }}

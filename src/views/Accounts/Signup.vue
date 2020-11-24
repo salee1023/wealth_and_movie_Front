@@ -2,6 +2,7 @@
   <div>
     <form @submit.prevent="signup" id="signup">
       <h1><strong>회원가입</strong></h1>
+      <hr>
       <div class="form-group">
         <label for="userId">ID</label>
         <input
@@ -32,7 +33,7 @@
           v-model="credentials.passwordConfirmation"
         />
       </div>
-      <button type="submit" class="btn btn-secondary my-3">가입</button>
+      <button type="submit" class="btn btn-lg btn-info my-3">가입</button>
     </form>
   </div>
 </template>
@@ -72,9 +73,9 @@ export default {
 
 <style>
 #signup {
-  border: 3pt groove lightgrey;
+  background-color: rgb(0, 0, 0, 0.6);
   width: 30%;
-  padding: 10px 10px 10px 10px;
+  padding: 20px 30px 20px 30px;
   margin: 30px auto;
 }
 </style>
