@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <header>
-      <h5>플젝플젝</h5>
       <Search-bar />
     </header>
     <!--movie정보가 있을 때 show-->
