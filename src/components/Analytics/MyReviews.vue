@@ -64,6 +64,8 @@ export default {
     for (var i=0; i < tmpData.length; i++ ) {
       this.rateData[tmpData[i]] = this.rateData[tmpData[i]] + 1
     }
+
+    this.$emit('rateAvg', this.rateAvg)
   },
 };
 </script>

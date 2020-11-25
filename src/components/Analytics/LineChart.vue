@@ -59,8 +59,6 @@
     created: function () {
         const tmpData = []
         this.profile.articles.forEach(article => tmpData.push(article.rank))
-        
-        console.log(tmpData)
 
         for (var i=0; i < tmpData.length; i++ ) {
           this.datacollection.datasets[0].data[tmpData[i]] = this.datacollection.datasets[0].data[tmpData[i]] + 1

@@ -19,6 +19,16 @@ export default {
       return this.$store.state.profile
     },
   },
+  created: function () {
+    const tmpData = []
+    this.profile.articles.forEach(article => tmpData.push(article.rank))
+
+    for (var i=0; i < tmpData.length; i++ ) {
+      this.rateData[tmpData[i]] = this.rateData[tmpData[i]] + 1
+    }
+
+    this.$emit('rateAvg', this.rateAvg)
+  },
 };
 </script>
 
