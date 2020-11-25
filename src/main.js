@@ -7,14 +7,11 @@ import { BootstrapVueIcons } from 'bootstrap-vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-
-
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(BootstrapVueIcons)
 Vue.use(Vuetify)
-
 
 
 new Vue({
