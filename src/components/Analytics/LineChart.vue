@@ -9,10 +9,10 @@
       return {
         datacollection: {
           //Data to be represented on x-axis
-          labels: ['0','1', '2', '3', '4', '5'],
+          labels: ['0점','1점', '2점', '3점', '4점', '5점'],
           datasets: [
             {
-              label: 'Data One',
+              label: '후기 개수',
               backgroundColor: '#f87979',
               borderColor: '#f87979',
               borderWidth: 3,
@@ -59,8 +59,6 @@
     created: function () {
         const tmpData = []
         this.profile.articles.forEach(article => tmpData.push(article.rank))
-        
-        console.log(tmpData)
 
         for (var i=0; i < tmpData.length; i++ ) {
           this.datacollection.datasets[0].data[tmpData[i]] = this.datacollection.datasets[0].data[tmpData[i]] + 1

@@ -7,10 +7,13 @@
 
       <!--리뷰를 작성했을 때-->
       <section v-if="profile.articles.length" id="recommend-movie">
-        <br><h2>당신은 XXXXXX한 사람입니다.</h2><br>
+        <!--MBTI 결과-->
+        <section>
+          <br><h2>{{ this.myMBTI }}</h2><br>
+        </section>
         <!--평가 성향 (평가 수, 별점 분포)-->
         <section>
-          <MyReviews/><br>
+          <MyReviews @rateAvg="showResult"/><br>
         </section>
         <!--선호 장르-->
         <section class="my-3">
@@ -48,9 +51,26 @@ export default {
     MyMovie,
     CloudChart,
   },
+  data: function () {
+    return {
+      myMBTI: '',
+    }
+  },
   methods: {
     goCommunity: function () {
       this.$router.push({ name: 'Community' })
+    },
+    showResult: function (avg) {
+      if (avg === 0 || avg === 1) {
+        this.myMBTI = '당신은 평점 짠돌이ㅠㅠ 부귀영화가 새로운 영화를 추천해줄게요!'
+      }
+      else if (avg === 2 || avg === 3) {
+        this.myMBTI = '당신은 날카로운 시선을 가진 영화 평론가! 부귀영화가 당신의 취향에 꼭 맞는 영화를 준비했어요'
+      }
+      else {
+        this.myMBTI = '당신은 영화광이거나 싫은 소리 못하는 ANGEL이거나😊 아래 다른 추천 영화도 감상해보세요!'
+      }
+      
     }
   },
   computed: {
@@ -67,6 +87,7 @@ export default {
     if (isLogin === false) {
       this.$router.push({ name: "Login" })
     }
+    this.$store.dispatch('getReviews')
     this.$store.dispatch('getProfile', this.username)
 
     window.scrollTo(0, 0)
