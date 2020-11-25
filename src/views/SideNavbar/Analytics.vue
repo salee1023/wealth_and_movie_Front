@@ -21,12 +21,8 @@
         </section>
         <!--추천 영화-->
         <section class="my-3">
-<<<<<<< HEAD
           <MyMovie/>
           <CloudChart/>
-=======
-          <MyMovie/><br>
->>>>>>> cc1e5cbebd4a454d0c6cb24004075d3b16d00f2f
         </section>
       </section> 
 
@@ -46,13 +42,9 @@
 import MyReviews from '@/components/Analytics/MyReviews'
 import MyFavorites from '@/components/Analytics/MyFavorites'
 import MyMovie from '@/components/Analytics/MyMovie'
-<<<<<<< HEAD
 import CloudChart from '@/components/Analytics/CloudChart'
 // import axios from "axios"
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL
-=======
-
->>>>>>> cc1e5cbebd4a454d0c6cb24004075d3b16d00f2f
 
 export default {
   name: "Analytics",

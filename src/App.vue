@@ -12,7 +12,7 @@
             data-toggle="modal"
             data-target="#logoutModal"
             >
-            <b-icon icon="power"></b-icon> Logout
+            Logout
           </b-button>
 
           <!--Logout Modal-->
@@ -77,7 +77,7 @@
         v-show="btnShow"
         @click="gotoHeader"
       >
-      <b-icon icon="chevron-double-up"></b-icon>
+      <h2 class="mb-0">⇈</h2>
       </v-btn>
     </v-fab-transition>
   </div>
