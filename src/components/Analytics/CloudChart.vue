@@ -28,13 +28,12 @@ export default {
     }
   },
   mounted: function () {
-    // this.$store.dispatch('getMovieReviews')
-
     am4core.useTheme(am4themes_animated);
-    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+
+    const chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
     chart.fontFamily = "Courier New";
-    var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-    series.randomness = 0.1;
+    const series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+    series.randomness = 0.2;
     series.rotationThreshold = 0;
     series.text = ''
 
@@ -59,10 +58,10 @@ export default {
       this.$router.push({ name: 'Community', params: {'genre': ev.target.currentText}})
     })
 
-    series.maxFontSize = am4core.percent(30)
-    series.minFontSize = am4core.percent(5)
+    series.maxFontSize = am4core.percent(40)
+    series.minFontSize = am4core.percent(10)
 
-    var hoverState = series.labels.template.states.create("hover");
+    const hoverState = series.labels.template.states.create("hover");
     hoverState.properties.fill = am4core.color("#FF0000");
     
     for (const path of document.querySelectorAll('path')) { path.remove() }
