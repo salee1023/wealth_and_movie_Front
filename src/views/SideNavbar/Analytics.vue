@@ -19,6 +19,7 @@
         <!--추천 영화-->
         <section class="my-3">
           <MyMovie/>
+          <CloudChart/>
         </section>
       </section> 
 
@@ -38,6 +39,7 @@
 import MyReviews from '@/components/Analytics/MyReviews'
 import MyFavorites from '@/components/Analytics/MyFavorites'
 import MyMovie from '@/components/Analytics/MyMovie'
+import CloudChart from '@/components/Analytics/CloudChart'
 // import axios from "axios"
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -47,6 +49,7 @@ export default {
     MyReviews,
     MyFavorites,
     MyMovie,
+    CloudChart,
   },
   methods: {
     setToken: function () {
