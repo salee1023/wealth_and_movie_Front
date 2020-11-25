@@ -1,13 +1,14 @@
 <template>
   <div>
     <div v-if="non_search" id="logo">
-      <img src="@/assets/logo1.png" id="logo1" alt="Logo">
+      <img src="@/assets/logo.png" id="logo1" alt="Logo">
+      <!-- <img src="@/assets/logo1.png" id="logo1" alt="Logo">
       <img src="@/assets/logo2.png" id="logo2" alt="Logo">
-      <img src="@/assets/logo3.png" id="logo3" alt="Logo">
+      <img src="@/assets/logo3.png" id="logo3" alt="Logo"> -->
     </div>
     <div
       class="search-bar input-group input-group-lg d-flex"
-      :style="{ margin : searchInput ? '0' : '47vh 0' }"
+      :style="{ margin : searchInput ? '0' : '48vh 0' }"
     > 
       <input
         type="text"
@@ -63,19 +64,19 @@ export default {
   top: 10px;
 }
 #logo1 {
-  width: 60%;
-  height: 55%;
+  width: 67%;
+  height: 60%;
   position: absolute;
-  top: 20vh;
-  right: 48vh;
+  top: 13vh;
+  right: 34vh;
   z-index: 1;
 }
-#logo2 {
+/* #logo2 {
   width: 10%;
   height: 10%;
   position: absolute;
   top: 48vh;
-  right: 48vh;
+  right: 53vh;
   z-index: 1;
 }
 #logo3 {
@@ -85,5 +86,5 @@ export default {
   top: 12vh;
   right: 35vh;
   z-index: 0;
-}
+} */
 </style>

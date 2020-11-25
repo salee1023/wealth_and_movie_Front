@@ -7,19 +7,23 @@
 
       <!--리뷰를 작성했을 때-->
       <section v-if="profile.articles.length" id="recommend-movie">
-        {{profile}}
+        <br><h2>당신은 XXXXXX한 사람입니다.</h2><br>
         <!--평가 성향 (평가 수, 별점 분포)-->
         <section>
-          <MyReviews/>
+          <MyReviews/><br>
         </section>
         <!--선호 장르-->
         <section class="my-3">
-          <MyFavorites/>
+          <MyFavorites/><br>
         </section>
         <!--추천 영화-->
         <section class="my-3">
+<<<<<<< HEAD
           <MyMovie/>
           <CloudChart/>
+=======
+          <MyMovie/><br>
+>>>>>>> cc1e5cbebd4a454d0c6cb24004075d3b16d00f2f
         </section>
       </section> 
 
@@ -39,9 +43,13 @@
 import MyReviews from '@/components/Analytics/MyReviews'
 import MyFavorites from '@/components/Analytics/MyFavorites'
 import MyMovie from '@/components/Analytics/MyMovie'
+<<<<<<< HEAD
 import CloudChart from '@/components/Analytics/CloudChart'
 // import axios from "axios"
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL
+=======
+
+>>>>>>> cc1e5cbebd4a454d0c6cb24004075d3b16d00f2f
 
 export default {
   name: "Analytics",
@@ -52,16 +60,6 @@ export default {
     CloudChart,
   },
   methods: {
-    setToken: function () {
-      const token = localStorage.getItem("jwt")
-
-      const config = {
-        headers: {
-          Authorization: `JWT ${token}`,
-        },
-      };
-      return config
-    },
     goCommunity: function () {
       this.$router.push({ name: 'Community' })
     }
