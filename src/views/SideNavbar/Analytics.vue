@@ -17,12 +17,11 @@
         </section>
         <!--선호 장르-->
         <section class="my-3">
-          <MyFavorites/><br>
+          <CloudChart/><br>
         </section>
         <!--추천 영화-->
         <section class="my-3">
           <MyMovie/>
-          <CloudChart/>
         </section>
       </section> 
 
@@ -40,7 +39,6 @@
 
 <script>
 import MyReviews from '@/components/Analytics/MyReviews'
-import MyFavorites from '@/components/Analytics/MyFavorites'
 import MyMovie from '@/components/Analytics/MyMovie'
 import CloudChart from '@/components/Analytics/CloudChart'
 // import axios from "axios"
@@ -50,7 +48,6 @@ export default {
   name: "Analytics",
   components: {
     MyReviews,
-    MyFavorites,
     MyMovie,
     CloudChart,
   },

@@ -31,7 +31,8 @@ const routes = [
   {
     path: '/community',
     name: 'Community',
-    component: Community
+    component: Community,
+    props: true,
   },
   {
     path: '/community/reviewpage',
