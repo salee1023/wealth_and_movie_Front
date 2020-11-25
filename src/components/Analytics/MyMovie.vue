@@ -5,10 +5,22 @@
     <div>
       <h3 class="text-left mx-3"><strong><span id="coloring">{{ username }}</span>님을 위한 영화입니다🤍</strong></h3><br>
     </div>
-    <ul>
-      <ui v-for="(rating, idx) in ratings.slice(0, 5)" :key="idx">
-        <h5>{{ rating[0] }} / 예상점수: {{ rating[1] }}</h5>
-      </ui>
+    <ul class="ml-5">
+      <li class="d-flex justify-content-between" style="list-style: none;">
+        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">🥇 {{ ratings[0][1].toFixed(2) }} Point</span>{{ ratings[0][0] }}</h5>
+      </li>
+      <li class="d-flex justify-content-between" style="list-style: none;">
+        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">🥈 {{ ratings[1][1].toFixed(2) }} Point</span>{{ ratings[1][0] }}</h5>
+      </li>
+      <li class="d-flex justify-content-between" style="list-style: none;">
+        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">🥉 {{ ratings[2][1].toFixed(2) }} Point</span>{{ ratings[2][0] }}</h5>
+      </li>
+      <li class="d-flex justify-content-between" style="list-style: none;">
+        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">{{ ratings[3][1].toFixed(2) }} Point</span>{{ ratings[3][0] }}</h5>
+      </li>
+      <li class="d-flex justify-content-between" style="list-style: none;">
+        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">{{ ratings[4][1].toFixed(2) }} Point</span>{{ ratings[4][0] }}</h5>
+      </li>
     </ul>
   </div>
 </template>
@@ -32,19 +44,23 @@ export default {
       return this.$store.state.reviews
     }
   },
+  methods: {
+    
+  },
   mounted: function () {
-    const movieRatings = {}
+    setTimeout(() => {
+      const movieRatings = {}
 
-    for (const review of this.reviews) {
-      if (review.user != this.username & this.profile.followings.includes(review.user)) {
-        if (review.movie.title in movieRatings) {
-          movieRatings[review.movie.title].push(review.rank)
-        } else {
-          movieRatings[review.movie.title] = [review.rank]
+      for (const review of this.reviews) {
+        if (review.user != this.username & this.profile.followings.includes(review.user)) {
+          if (review.movie.title in movieRatings) {
+            movieRatings[review.movie.title].push(review.rank)
+          } else {
+            movieRatings[review.movie.title] = [review.rank]
+          }
         }
       }
-    }
-    setTimeout(() => {
+
       const sensitivity = 0.5
 
       for (const movie in movieRatings) {
@@ -63,12 +79,8 @@ export default {
       sortedRatings.sort(function(a, b) {
           return b[1] - a[1];
       });
-      console.log(sortedRatings)
       this.ratings = sortedRatings
     }, 2000)
-    
-
-    
   },
 };
 </script>
