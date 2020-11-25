@@ -17,6 +17,7 @@ export default new Vuex.Store({
     is_login: false,
     username: '',
     searchInput: '',
+    selectedGenre: '전체',
     searchedMovie: null,
     videos: [],
     movieReviews: [],

@@ -216,9 +216,15 @@ export default {
       }
     },
   },
-
   created: function () {
-    this.selectedMovies = this.$store.state.movies
+    if (this.$route.params.genre) {
+      this.selectedGenre = this.$route.params.genre
+      this.selectedMovies = this.movies.filter((movie) =>
+        movie.genres.includes(this.selectedGenre)
+      )
+    } else {
+      this.selectedMovies = this.$store.state.movies
+    }
   },
 };
 </script>

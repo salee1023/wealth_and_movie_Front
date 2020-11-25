@@ -1,6 +1,13 @@
 <template>
-  <div id="chartdiv"  style="height: 40vh: ; width: 50vw;">
+  <div class="w-100">
+    <h1 class="text-left m-3"><strong>나의 영화 성향은?</strong></h1>
+    <hr/>
+    <div>
+      <h3 class="text-left mx-3"><strong><span id="coloring">{{ favoiteGenre }}</span>를 좋아하는군요!</strong></h3><br>
+      <div id="chartdiv" />
+    </div>
   </div>
+
 
 </template>
 
@@ -15,14 +22,20 @@ export default {
     reviews () { return this.$store.state.reviews },
     username () { return this.$store.state.username },
   },
+  data () {
+    return {
+      favoiteGenre: '',
+    }
+  },
   mounted: function () {
-    this.$store.dispatch('getMovieReviews')
+    // this.$store.dispatch('getMovieReviews')
 
     am4core.useTheme(am4themes_animated);
     var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+    chart.fontFamily = "Courier New";
     var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-    // chart.Width = am4core.percent(100)
-    // chart.relativeHeight = am4core.percent(50)
+    series.randomness = 0.1;
+    series.rotationThreshold = 0;
     series.text = ''
 
     for (const review of this.reviews) {
@@ -33,22 +46,38 @@ export default {
       }
     }
 
-    series.colors = new am4core.ColorSet();
-    series.colors.passOptions = {};
+    series.heatRules.push({
+    "target": series.labels.template,
+    "property": "fill",
+    "min": am4core.color("#0000CC"),
+    "max": am4core.color("#CC00CC"),
+    "dataField": "value"
+    });
 
-    setTimeout(function () {
-      const tspans = document.querySelectorAll('tspan')
-      console.log(tspans)
-      console.log(tspans.forEach(tspan => console.log(tspan.textContent)))
-    }, 1000)
+    this.favoiteGenre = series.data[0].word
+    series.labels.template.events.on("hit", (ev) => {
+      this.$router.push({ name: 'Community', params: {'genre': ev.target.currentText}})
+    })
+
+    series.maxFontSize = am4core.percent(30)
+    series.minFontSize = am4core.percent(5)
+
+    var hoverState = series.labels.template.states.create("hover");
+    hoverState.properties.fill = am4core.color("#FF0000");
+    
     for (const path of document.querySelectorAll('path')) { path.remove() }
-  }
+  },
+  beforeDestroy() {
+    if (this.chart) {
+      this.chart.dispose();
+    }
+  },
 }
 </script>
 
 <style>
 #chartdiv {
   width: 100%;
-  height: 600px;
+  height: 50vh;
 }
 </style>
