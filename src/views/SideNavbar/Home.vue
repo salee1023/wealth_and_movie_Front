@@ -13,7 +13,7 @@
       <section id="comments">
         <Comments/>
       </section>
-      <section id="recommend">
+      <section id="recommend" style="border-bottom-left-radius: .3rem; border-bottom-right-radius: .3rem;">
         <Recommend/>
       </section>
     </section>

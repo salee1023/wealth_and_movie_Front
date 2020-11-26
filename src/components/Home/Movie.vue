@@ -30,6 +30,8 @@ export default {
   width: 100%;
   height: 20rem;
   overflow: hidden;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
 }
 .container img {
   position: absolute;

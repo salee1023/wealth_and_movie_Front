@@ -59,7 +59,7 @@ export default {
     })
 
     series.maxFontSize = am4core.percent(40)
-    series.minFontSize = am4core.percent(10)
+    series.minFontSize = am4core.percent(4)
 
     const hoverState = series.labels.template.states.create("hover");
     hoverState.properties.fill = am4core.color("#FF0000");

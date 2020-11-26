@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100">
+  <div class="w-100" style="border-bottom-left-radius: .3rem; border-bottom-right-radius: .3rem;">
     <h1 class="text-left m-3"><strong>Recommendation</strong></h1>
     <hr/>
     <div v-if="isLogin">
@@ -7,13 +7,13 @@
         <div class="mx-3">
           <div v-if="!recommendScore">데이터가 부족합니다!</div>
           <div v-else>
-            <br><h4>{{searchedMovie[0].title}}의 추천 점수는 <span id="dif-txt">{{ recommendScore }}점</span>입니다! </h4>
+            <br><h4>{{searchedMovie[0].title}}의 추천 점수는 <span id="dif-txt">{{ recommendScore.toFixed(2) }}점</span>입니다! </h4>
             <br>
             <div v-if="recommendScore >= 4">이 영화의 추천등급은 <h4 class="font-italic d-inline">"🥇 인생영화" </h4> 입니다.</div>
             <div v-else-if="recommendScore >= 3">이 영화의 추천등급은 <h4 class="font-italic d-inline">"🥈 재밌는영화" </h4> 입니다.</div>
             <div v-else-if="recommendScore >= 2">이 영화의 추천등급은 <h4 class="font-italic d-inline">"🥉 볼만한영화" </h4> 입니다.</div>
             <div v-else>이 영화의 추천등급은 <h4 class="font-italic d-inline">"시간죽이기영화" </h4> 입니다.</div>
-            <br>
+            <br><br>
             <div id="barBottom" />
             <div id="barTop" :style="{ width: vwidth }"/>
             <br>

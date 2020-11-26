@@ -2,7 +2,7 @@
   <div>
     <section id="analytics">
         <h1 id="analytics-title" class="text-light my-5">
-          <strong>{{username}}님의 M<span id="small-txt">(movie)</span>BTI</strong>
+          <strong>{{ username }}님의 M<span id="small-txt">(movie)</span>BTI</strong>
         </h1>
 
       <!--리뷰를 작성했을 때-->
@@ -106,6 +106,10 @@ export default {
   font-size: 5rem;
 }
 #recommend-movie {
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+  border-bottom-left-radius: .3rem;
+  border-bottom-right-radius: .3rem;
   padding: 1rem 1rem;
   background-color: rgb(0, 0, 0, 0.6);
   color: #ede8f1;

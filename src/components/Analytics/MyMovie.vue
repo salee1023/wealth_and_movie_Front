@@ -54,14 +54,14 @@ export default {
       }
     }
 
-    const sensitivity = 0.5
+    const sensitivity = 0.2
 
     for (const movie in movieRatings) {
       const movieRating = movieRatings[movie]
       const average = movieRating.reduce((a, b) => a + b) / movieRating.length;
-      const sigmoidRating = Math.round(200 * (1 / ( 1 + 2.7 ** ( - movieRating.length * sensitivity )) - 0.5) * average) / 100
+      const sigmoidRating = 2 * (1 / ( 1 + 2.72 ** ( - movieRating.length * sensitivity )) - 0.5)
 
-      movieRatings[movie] = sigmoidRating
+      movieRatings[movie] = 2.5 + (average - 2.5) * sigmoidRating
     }
 
     const sortedRatings = [];

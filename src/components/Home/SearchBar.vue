@@ -71,13 +71,13 @@ export default {
         const sensitivity = 0.5
 
         const average = ratings.reduce((a, b) => a + b) / ratings.length;
-        const sigmoidRating = Math.round(200 * (1 / ( 1 + 2.7 ** ( - ratings.length * sensitivity )) - 0.5) * average) / 100
+        const sigmoidRating = 2 * (1 / ( 1 + 2.72 ** ( - ratings.length * sensitivity )) - 0.5)
 
-        this.rating = sigmoidRating
+        this.rating = 2.5 + (average - 2.5) * sigmoidRating
 
         this.$store.state.recommendScore = this.rating
       } else {
-        this.$store.state.recommendScore = 0
+        this.$store.state.recommendScore = 2.5
       }
     },
   },

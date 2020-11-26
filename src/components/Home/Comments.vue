@@ -10,15 +10,13 @@
           id="review"
           class="mx-4"
         >
-          <h5>{{ review.user }}</h5>
+          <span>⭐{{ review.rank }} <h5 class="d-inline ml-2">{{ review.user }}</h5></span>
           <p>{{ review.content }}</p>
           <p>{{ review.created_at }} | {{ review.updated_at }}</p>
 
-          <div v-if="username === review.user" class="mt-2">
-            <button type="button" class="btn btn-outline-primary">수정</button>
-            <button type="button" class="btn btn-outline-danger mx-1">
-              삭제
-            </button>
+          <div v-if="username === review.user" class="mt-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-sm btn-outline-primary">수정</button>
+            <button type="button" class="btn btn-sm btn-outline-danger mx-1">삭제</button>
           </div>
           <br/>
         </li>
