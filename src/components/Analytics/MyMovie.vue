@@ -15,12 +15,6 @@
       <li class="d-flex justify-content-between" style="list-style: none;">
         <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">🥉 {{ ratings[2][1].toFixed(2) }} Point</span>{{ ratings[2][0] }}</h5>
       </li>
-      <li class="d-flex justify-content-between" style="list-style: none;">
-        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">{{ ratings[3][1].toFixed(2) }} Point</span>{{ ratings[3][0] }}</h5>
-      </li>
-      <li class="d-flex justify-content-between" style="list-style: none;">
-        <h5 class="text-left"><span class="pr-3" style="font-size: 15px;">{{ ratings[4][1].toFixed(2) }} Point</span>{{ ratings[4][0] }}</h5>
-      </li>
     </ul>
   </div>
 </template>
