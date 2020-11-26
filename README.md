@@ -1,4 +1,4 @@
-# 🎇FINAL PROJECT - 🎇
+# 🎇FINAL PROJECT - 부귀영화🎇
 
 ### 00. 프로젝트 개요
 
@@ -15,10 +15,12 @@
 
 - #### 팀원 정보 & 역할
 
-| 이름   | 직위 | 역할     |
-| ------ | ---- | -------- |
-| 임지성 | 팀장 | Backend  |
-| 이승아 | 팀원 | Frontend |
+> 기본 기능은 Back, Front 나누어 진행하고 추가 심화 기능은 역할 구분 없이 함께 개발했다. 
+
+| 이름   | 직위 | 역할               |
+| ------ | ---- | ------------------ |
+| 임지성 | 팀장 | Backend (Frontend) |
+| 이승아 | 팀원 | Frontend (Backend) |
 
 
 
@@ -72,45 +74,140 @@
 >
 > 회원가입과 로그인을 통해 인증해야 각 페이지에 접근할 권한을 가지게 된다. (Home 제외) 
 >
-> 
+> `vuex` 와`vuex-persistedstate` 를 활용하여 로그인 상태 관리를 했다. 
 
 ![image-20201126151533298](README.assets/image-20201126151533298.png)
 
+- Signup은 `(SERVER_URL)/accounts/signup/` 으로 credentials 정보를 함께 넘겨준다.
+- Login은 `(SERVER_URL)/accounts/api-token-auth/`  으로 credentials 정보를 함께 넘겨준다.
+
+<br><br>
+
+#### 2) `SideNavbar` 
+
+> Home, Mypage, Community, Analytics로 이동할 수 있는 Navbar이다. 
+>
+> [vue-burger-menu](https://www.npmjs.com/package/vue-burger-menu)를 참고하였다.
+
+![image-20201126172623296](README.assets/image-20201126172623296.png)
+
+- 각 메뉴를 클릭하면 연결된 router주소로 이동한다. 
+
+<br><br>
+
+#### 3) `Home` : 영화 정보 검색
+
+> 검색바에 영화 제목을 입력하면 영화정보를 보여준다. 
+>
+> 영화는 `title`을 기준으로 가져오고 (포스터, 줄거리, 장르, 생성연도, 동영상, 리뷰) 정보를 보여준다.
+>
+> 동영상은 `Youtube API`를 활용했다.
+
+![image-20201126173803923](README.assets/image-20201126173803923.png)
+
+- 검색바는 margin에 조건을 걸어, 검색어가 입력되는 순간 위로 올라가게 만들었다. 
+
 ```vue
-<script>
-// 생략
-export default {
-  // 생략
-  data: function () {
-    return {
-      credentials: {
-        username: "",
-        password: "",
-        passwordConfirmation: "",
-      },
-    };
-  },
-  methods: {
-    signup: function () {
-      axios
-        .post(`${SERVER_URL}/accounts/signup/`, this.credentials)
-        .then(() => {
-          this.$router.push({ name: "Login" });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-};
-</script>
+:style="{ margin : searchInput ? '0' : '48vh 0' }"
 ```
 
+- 검색바 InputData와 Youtube API로 검색된 데이터를  vuex state에 넣어서 관리했다.
+
+```javascript
+// SearchBar.vue에서 InputData와 함께 영화 검색 action 호출
+this.$store.dispatch("movieVideoSearch", event.target.value)
 
 
-- auto indent (진짜..최고의 기능)
+// store/index.js
+MOVIE_VIDEO_SEARCH: function (state, query) {
+    
+    state.videos = []
 
-`Shift` + `Alt` + `F`
+    axios.get(YOUTUBE_API_URL, {
+        params: {
+            key: YOUTUBE_API_KEY,
+            part: 'snippet',
+            type: 'video',
+            q: query,
+        }
+    })
+    	// 응답받은 video중 2개만 가져와서 state의 video에 넣어준다. 
+        .then(res => {
+            const r_videos = res.data.items
+            for (var i = 0; i < 2; i++) {
+                state.videos.push(r_videos[i])
+            }
+    })
+        .catch(err => {
+        	console.log(err)
+    })
+```
+
+> 각 영화별 추천 점수를 계산하여 차트로 표현했다.
+>
+> 추천 알고리즘 : ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐
+
+![image-20201126175940647](README.assets/image-20201126175940647.png)
+
+- ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐구현설명⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
+<br><br>
+
+#### 4) `Mypage` : 개인 프로필 / Follow
+
+> 마이페이지에서는 나의 프로필과 내가 쓴 리뷰를 볼 수 있다. 
+>
+> 검색바에 다른 유저를 검색하여 다른사람의 프로필을 볼 수 있고 팔로우를 할 수 있다.
+
+![image-20201126221557785](README.assets/image-20201126221557785.png)
+
+ ![image-20201126222209043](README.assets/image-20201126222209043.png)
+
+- 
+
+- 
+
+<br><br>
+
+#### 5) `Community` : 리뷰 CRUD / 좋아요
+
+> 영화는 상단 selectbox로 필터링해서 볼 수 있다.
+>
+> 각 영화를 클릭하면 리뷰를 작성하거나 작성된 리뷰를 확인할 수 있다.
+>
+> 상세 리뷰 페이지에서는 작성한 User가 리뷰 수정과 삭제를 할 수 있다.
+>
+> 모든 리뷰에는 댓글을 달거나 좋아요를 할 수 있다.
+
+![image-20201126223300157](README.assets/image-20201126223300157.png)
+
+![image-20201126223442802](README.assets/image-20201126223442802.png)
+
+![image-20201126223548425](README.assets/image-20201126223548425.png)
+
+
+
+![image-20201126223330423](README.assets/image-20201126223330423.png)
+
+- 
+
+- 
+
+<br><br>
+
+#### 6) `Analytics` : 평점기반 영화취향 분석
+
+> User는 작성한 리뷰를 바탕으로 평가 성향을 알 수 있다.
+>
+> 작성한 리뷰를 바탕으로 좋아하는 영화 장르를 알 수 있다.
+>
+> 팔로우한 다른 유저의 취향을 바탕으로 나에게 맞는 영화를 추천받는다.
+
+![image-20201126224605493](README.assets/image-20201126224605493.png)
+
+![image-20201126224808933](README.assets/image-20201126224808933.png)
+
+![image-20201126224837487](README.assets/image-20201126224837487.png)
 
 ----
 
@@ -124,7 +221,26 @@ export default {
 >
 > 응용하면 컴포넌트가 생성됐을 때, 화면 가장 위로 보내주는 기능도 만들 수 있다. 
 
-
+```vue
+<template>
+<!-- Scroll Top Button -->
+<v-fab-transition>
+    <v-btn
+           bottom
+           right
+           fixed
+           fab
+           elevation="15"
+           x-large
+           class="m-2"
+           v-show="btnShow"
+           @click="gotoHeader"
+           >
+        <h2 class="mb-0">⇈</h2>
+    </v-btn>
+    </v-fab-transition>
+</template>
+```
 
 ```vue
 <script>
@@ -134,8 +250,10 @@ created: function () {
 </script>
 ```
 
+#### ![image-20201126224922623](README.assets/image-20201126224922623.png)
 
+---
 
+### 05. 느낀점
 
-
-#### 
+`Shift` + `Alt` + `F `    auto indent (진짜..최고의 기능)
