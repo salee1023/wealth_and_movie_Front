@@ -145,11 +145,9 @@ MOVIE_VIDEO_SEARCH: function (state, query) {
 
 > 각 영화별 추천 점수를 계산하여 차트로 표현했다.
 >
-> 추천 알고리즘 : ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐
+> 추천 알고리즘 : 팔로우한 User의 평점을 바탕으로 영화 순위를 매기고 현재 영화의 순위를 계산해 점수를 산출한다.  
 
 ![image-20201126175940647](README.assets/image-20201126175940647.png)
-
-- ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐구현설명⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
 
 <br><br>
 
@@ -163,9 +161,25 @@ MOVIE_VIDEO_SEARCH: function (state, query) {
 
  ![image-20201126222209043](README.assets/image-20201126222209043.png)
 
-- 
+- 프로필 이미지 url을 입력하면 프로필 사진을 변경할 수 있게 만들었다. 
 
-- 
+```vue
+putImage: function () {
+      const config = this.setToken()
+      this.imgURL =  this.inputURL
+      this.inputURL = ''
+
+      axios.patch(`${SERVER_URL}/accounts/${this.profile.username}/`, { profile : this.imgURL} , config)
+        .then(() => {
+          this.profile.profile = this.imgURL      
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+```
+
+- 상단 검색바의 user검색기능은 Home의 검색기능과 동일한 방식이다.
 
 <br><br>
 
@@ -179,19 +193,50 @@ MOVIE_VIDEO_SEARCH: function (state, query) {
 >
 > 모든 리뷰에는 댓글을 달거나 좋아요를 할 수 있다.
 
+
+
 ![image-20201126223300157](README.assets/image-20201126223300157.png)
 
-![image-20201126223442802](README.assets/image-20201126223442802.png)
+- SelectBox의 값을 watch하여, 장르가 바뀌는 동시 필터링된 영화목록이 부드럽게 나타나도록 만들었다.
 
-![image-20201126223548425](README.assets/image-20201126223548425.png)
+```vue
+watch: {
+    selectedGenre: function () {
+      if (this.selectedGenre === "전체") {
+        this.selectedMovies = this.movies
+      } else {
+        this.selectedMovies = this.movies.filter((movie) =>
+          movie.genres.includes(this.selectedGenre)
+        )
+      }
+    },
+  },
+```
 
+![image-20201126232153030](README.assets/image-20201126232153030.png)
 
+- 리뷰작성폼과 작성된 리뷰들은 Modal을 사용했고, 작성된 리뷰를 보는 Modal은 리뷰가 많아질 것을 대비하여 Scrollable한 Modal을 이용했다. 
 
 ![image-20201126223330423](README.assets/image-20201126223330423.png)
 
-- 
+- Community 하단에는 작성한 리뷰를 최신순과 좋아요 순으로 10개씩 볼 수 있다. (`lodash`사용)
 
-- 
+```vue
+//RecentReview.vue
+
+reviews: function () {
+	const recentReview = _.slice(this.$store.state.reviews, 0, 10)
+	return recentReview
+},
+
+//BestReview.vue
+
+reviews: function () {
+      const sortedReview = _.orderBy(this.$store.state.reviews, function(review) { return review.like_users.length}, ['desc'])
+      const bestReview = _.slice(sortedReview, 0, 10)
+      return bestReview
+    },
+```
 
 <br><br>
 
@@ -205,9 +250,32 @@ MOVIE_VIDEO_SEARCH: function (state, query) {
 
 ![image-20201126224605493](README.assets/image-20201126224605493.png)
 
+- Analytics의 평가 LineChart는 [chart.js](https://github.com/apertureless/vue-chartjs)를 사용했다. 각 계산 결과는 js array method와 lodash를 사용했다.
+
+```javascript
+rateCount: function () {
+      var res = 0
+
+      for (var i=0; i < this.rateData.length; i++ ) {
+        res = res + this.rateData[i] * i 
+      }
+      return res
+    },
+rateAvg: function () {
+      return Math.floor(this.rateCount / this.profile.articles.length)
+},
+rateMode: function () {
+      return _.indexOf(this.rateData , _.max(this.rateData))
+},
+```
+
 ![image-20201126224808933](README.assets/image-20201126224808933.png)
 
+- 영화 성향의 [cloudChart](https://www.amcharts.com/docs/v4/chart-types/wordcloud/)는 링크를 참조했다. 선호도가 높을 수록 글자가 커진다. 각 태그를 클릭하면 Community사이트에 해당 장르로 필터링된 화면으로 이동한다. 
+
 ![image-20201126224837487](README.assets/image-20201126224837487.png)
+
+- 팔로우한 유저들이 작성한 리뷰를 기반으로 영화의 추천 순위를 계산한다. 추천 점수의 신뢰도를 높이기 위해서 `시그모이드` 함수를 이용했다. 소수의 의견에 의해 값이 급격하게 변화하는 것을 막기 위해서 시그모이드 함수를 활용했다.
 
 ----
 
@@ -256,4 +324,8 @@ created: function () {
 
 ### 05. 느낀점
 
-`Shift` + `Alt` + `F `    auto indent (진짜..최고의 기능)
+- 한 학기 동안 배운 내용을 전반적으로 사용하고 응용해 볼 수 있어서 유익했다.
+- 함께 코드를 작성하기 때문에, 더욱 직관적이고 알기 쉬운 코드를 작성하려고 노력했다 (+주석)
+- 다양한 공식문서를 읽어보고, 이전 실습때는 써보지 못한 함수도 적용해 볼 수 있었다.
+- 프로젝트 초반에 계획과정의 중요성을 알았다. (계획없이 진행하면 나중에 수정해야할 부분이 더 늘어난다.)
+- 에러를 하나하나 해결하면서 헷갈렸던 개념을 더 확실히 알 수 있었다. 
