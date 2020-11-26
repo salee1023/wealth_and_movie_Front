@@ -3,7 +3,7 @@
     <div class="container">
       <img :src="movieImgSrc" alt="영화이미지" />
       <div id="rank" class="d-flex align-items-end">
-        <h4 class="m-2">{{movie[0].title}}⭐ : {{ movie[0].vote_average / 2 }}</h4>
+        <h4 class="m-2">{{ movie[0].title }}⭐ : {{ movie[0].vote_average / 2 }}</h4>
       </div>
     </div>
   </div>
