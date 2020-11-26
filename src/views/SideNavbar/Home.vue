@@ -43,11 +43,15 @@ export default {
     searchData: function () {
       return this.$store.state.searchedMovie;
     },
+    username: function () {
+      return this.$store.state.username;
+    },
   },
   created: function () {
     this.$store.dispatch("initialize")
     this.$store.dispatch("getMovies")
     this.$store.dispatch("getReviews")
+    this.$store.dispatch("getProfile", this.username)
     window.scrollTo(0, 0)
   },
 };

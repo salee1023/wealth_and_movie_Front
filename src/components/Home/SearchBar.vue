@@ -40,6 +40,16 @@ export default {
     searchInput: function () {
       return this.$store.state.searchInput
     },
+    
+    searchedMovie: function () {
+      return this.$store.state.searchedMovie
+    },
+    reviews: function () {
+      return this.$store.state.reviews
+    },
+    username: function () {
+      return this.$store.state.username
+    }
   },
   methods: {
     onEnter: function (event) {
@@ -48,6 +58,27 @@ export default {
       this.$store.dispatch("movieVideoSearch", event.target.value)
       this.$store.dispatch("getMovieReviews", this.searchData[0].id)
       event.target.value = ""
+
+      const ratings = []
+
+      for (const review of this.reviews) {
+        if (review.movie.title === this.searchedMovie[0].title & review.user != this.username) {
+          ratings.push(review.rank)
+        }
+      }
+
+      if (ratings.length > 0) {
+        const sensitivity = 0.5
+
+        const average = ratings.reduce((a, b) => a + b) / ratings.length;
+        const sigmoidRating = Math.round(200 * (1 / ( 1 + 2.7 ** ( - ratings.length * sensitivity )) - 0.5) * average) / 100
+
+        this.rating = sigmoidRating
+
+        this.$store.state.recommendScore = this.rating
+      } else {
+        this.$store.state.recommendScore = 0
+      }
     },
   },
 };

@@ -2,7 +2,7 @@
   <div>
     <h1 class="text-left m-3"><strong>Best Review</strong></h1>
     <hr/>
-    <li id="reviews" v-for="(review, idx) in this.sorted_reviews" :key="idx">
+    <li id="reviews" v-for="(review, idx) in this.reviews" :key="idx">
       <h5>
         <strong>{{ review.user }}</strong>
       </h5>
@@ -30,11 +30,10 @@ export default {
   name: "BestReview",
   computed: {
     reviews: function () {
-      return this.$store.state.reviews
+      const sortedReview = _.orderBy(this.$store.state.reviews, function(review) { return review.like_users.length}, ['desc'])
+      const bestReview = _.slice(sortedReview, 0, 10)
+      return bestReview
     },
-    sorted_reviews: function () {
-      return _.orderBy(this.reviews, ['like_users'], ['desc'])
-    }
   },
   methods: {
     clickedReview: function (review) {

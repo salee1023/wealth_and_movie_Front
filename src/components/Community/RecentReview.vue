@@ -24,11 +24,14 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: "RecentReview",
   computed: {
     reviews: function () {
-      return this.$store.state.reviews;
+      const recentReview = _.slice(this.$store.state.reviews, 0, 10)
+      return recentReview
     },
   },
   methods: {

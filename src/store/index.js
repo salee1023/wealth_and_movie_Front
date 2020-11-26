@@ -19,6 +19,7 @@ export default new Vuex.Store({
     searchInput: '',
     selectedGenre: '전체',
     searchedMovie: null,
+    recommendScore: 0,
     videos: [],
     movieReviews: [],
     clickedMovie: null,
